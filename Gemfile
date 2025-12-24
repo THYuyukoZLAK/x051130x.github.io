@@ -11,3 +11,8 @@ gem 'jekyll-spaceship'
 gem 'jekyll_plugin_logger'
 gem 'jekyll-feed'
 gem 'jekyll-toc'
+
+gem "rouge", "~> 4.5.1"
+gem "terminal-table", "~> 4.0.0"
+gem "unicode-display_width", "~> 3.1.4"
+gem "unicode-emoji", "~> 4.0.4"
