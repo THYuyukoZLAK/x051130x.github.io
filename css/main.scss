@@ -105,7 +105,9 @@ a.uuz-post-entry .headline::hover, a.uuz-post-entry .headline::focus {
 }
 
 // Banners
-.banner {}
+.banner {
+    display: block;
+}
 
 // TOC
 
