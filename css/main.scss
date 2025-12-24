@@ -1,14 +1,14 @@
 ---
 --- 
 
-@import "loading-screen.scss";
-@import "scrollbar.scss";
-@import "headfront.scss";
-@import "utilities.scss";
-@import "derocation_widgets.scss";
-@import "bootstrap.scss";
+@import "loading-screen";
+@import "scrollbar";
+@import "headfront";
+@import "utilities";
+@import "derocation_widgets";
+@import "bootstrap";
 
-@import "markdown.scss";
+@import "markdown";
 
 .scroll-padding-navbar {
     scroll-padding-top: calc($menubar-height + 5%);
