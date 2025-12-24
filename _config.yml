@@ -19,6 +19,9 @@ include:
 
 exclude:
   - CNAME
+  - vendor
+  - Gemfile
+  - Gemfile.lock
 
 plugins:
   - jekyll-autoprefixer
