@@ -23,15 +23,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
 
-plugins:
-  - jekyll-autoprefixer
-  - jekyll-titles-from-headings
-  - jekyll-spaceship
-#  - jekyll-liquify
-  - jekyll-feed
-  - jekyll_plugin_logger
-  - jekyll-toc
-
 defaults:
   - scope:
       path: ""

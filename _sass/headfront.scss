@@ -17,7 +17,7 @@
 }
 
 .mainpage-bg {
-    background-image: cross-fade(70% url('/img/uuzbg.jpg'), $transparent-img);
+    background-image: cross-fade(url('/img/uuzbg.jpg'), $transparent-img, 70%);
     background-color: black;
     background-repeat: no-repeat;
     background-size: cover;
