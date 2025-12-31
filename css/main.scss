@@ -11,12 +11,12 @@
 @import "markdown";
 
 .scroll-padding-navbar {
-    scroll-padding-top: calc($menubar-height + 5%);
+    scroll-padding-top: calc(#{$menubar-height} + 5%);
 }
 
 .sidebar-sticky-top {
-    top: calc($menubar-height + 1rem);
-    max-height: calc(100vh - #{$menubar-height} - 1rem - $spacer);
+    top: calc(#{$menubar-height} + 1rem);
+    max-height: calc(100vh - #{$menubar-height} - 1rem - #{$spacer});
 }
 
 .uuz-lg-show-flex {
