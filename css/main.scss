@@ -1,22 +1,22 @@
 ---
 --- 
 
-@import "loading-screen.scss";
-@import "scrollbar.scss";
-@import "headfront.scss";
-@import "utilities.scss";
-@import "derocation_widgets.scss";
-@import "bootstrap.scss";
+@import "loading-screen";
+@import "scrollbar";
+@import "headfront";
+@import "utilities";
+@import "derocation_widgets";
+@import "bootstrap";
 
-@import "markdown.scss";
+@import "markdown";
 
 .scroll-padding-navbar {
-    scroll-padding-top: calc($menubar-height + 5%);
+    scroll-padding-top: calc(#{$menubar-height} + 5%);
 }
 
 .sidebar-sticky-top {
-    top: calc($menubar-height + 1rem);
-    max-height: calc(100vh - #{$menubar-height} - 1rem - $spacer);
+    top: calc(#{$menubar-height} + 1rem);
+    max-height: calc(100vh - #{$menubar-height} - 1rem - #{$spacer});
 }
 
 .uuz-lg-show-flex {
@@ -105,7 +105,9 @@ a.uuz-post-entry .headline::hover, a.uuz-post-entry .headline::focus {
 }
 
 // Banners
-.banner {}
+.banner {
+    display: block;
+}
 
 // TOC
 
