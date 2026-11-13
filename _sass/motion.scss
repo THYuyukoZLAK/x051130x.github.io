@@ -242,29 +242,97 @@ $ease: cubic-bezier(.2, 0, 0, 1);
     animation-timing-function: $ease;
 }
 
-// --- M5 + M6: the artwork reacts to scroll and pointer ----------------------
-// Slightly oversized so that neither movement shows an edge.
+// --- Artwork shutter (replaces the old scroll-linked recede) ----------------
+// The homepage artwork lives in .art-stage inside the hero. Leaving the hero,
+// js/motion.js drives three custom properties from the scroll position:
+//   --fx / --fy   how far the picture is cropped from the sides / top+bottom
+//   --art-o       its opacity
+// The picture narrows to a viewfinder frame with corner marks, the frame
+// shuts sideways, and what is left is the plain page colour.
+//
+// Without scripts (or with reduced motion) the layer is simply the hero's
+// own background and scrolls away with it.
 
-.is-home .mainpage-bg::before {
+.mainpage-bg.home-stage {
+    background-color: $c-bg;
+
+    // The artwork comes from .art-stage here, not from the wrapper.
+    &::before {
+        content: none;
+    }
+}
+
+.headfront {
+    position: relative;
+}
+
+.art-stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.art-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('/img/uuzbg.jpg');
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    clip-path: inset(var(--fy, 0%) var(--fx, 0%));
+    opacity: var(--art-o, 1);
+}
+
+@media (orientation: portrait) {
+    .art-image {
+        background-position: 58% center;
+    }
+}
+
+.art-corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 0 solid $c-label;
+    opacity: 0;
+    transition: border-color $t-fast, opacity $t-fast;
+}
+
+.art-corner-tl { top: var(--fy, 0%); left: var(--fx, 0%); border-top-width: 2px; border-left-width: 2px; }
+.art-corner-tr { top: var(--fy, 0%); right: var(--fx, 0%); border-top-width: 2px; border-right-width: 2px; }
+.art-corner-bl { bottom: var(--fy, 0%); left: var(--fx, 0%); border-bottom-width: 2px; border-left-width: 2px; }
+.art-corner-br { bottom: var(--fy, 0%); right: var(--fx, 0%); border-bottom-width: 2px; border-right-width: 2px; }
+
+.art-stage.is-framed .art-corner {
+    opacity: 1;
+}
+
+// The marks turn red as the frame shuts: the same "lock" as the hover state.
+.art-stage.is-closing .art-corner {
+    border-color: $c-alert;
+}
+
+.art-stage.is-closed {
+    visibility: hidden;
+}
+
+// With scripts running the layer is pinned to the screen, slightly oversized
+// so the pointer parallax never shows an edge.
+.js-motion .art-stage {
+    position: fixed;
+    height: 100vh;
+    height: 100lvh;
     scale: 1.02;
     translate: var(--art-x, 0) var(--art-y, 0);
     transition: translate .25s ease-out;
-}
-
-@keyframes uuz-art-recede {
-    to {
-        scale: 1.08;
-        opacity: .75;
-    }
-}
-
-@supports (animation-timeline: scroll()) {
-    .js-motion.is-home .mainpage-bg::before,
-    .js-motion .is-home .mainpage-bg::before {
-        animation: uuz-art-recede linear both;
-        animation-timeline: scroll(root block);
-        animation-range: 0 100vh;
-    }
 }
 
 // --- Reduced motion ---------------------------------------------------------
@@ -277,12 +345,6 @@ $ease: cubic-bezier(.2, 0, 0, 1);
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
         transition-delay: 0s !important;
-    }
-
-    .is-home .mainpage-bg::before {
-        animation: none !important;
-        scale: 1;
-        translate: none;
     }
 
     @view-transition {

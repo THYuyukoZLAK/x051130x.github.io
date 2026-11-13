@@ -17,7 +17,7 @@
     // Guided transition between the hero and the post list. It starts on the
     // first notch of a mouse wheel. Trackpads and touch screens scroll
     // natively: their small continuous deltas are never intercepted.
-    const TRANSITION_MS = 500;
+    const TRANSITION_MS = 700; // long enough for the artwork shutter to read
     const WHEEL_NOTCH = 50; // px; smaller deltas are treated as a trackpad
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let frame = null;

@@ -6,8 +6,20 @@ layout: default
 <script src="{{ '/js/site-stats.js' | relative_url }}" defer></script>
 <script src="{{ '/js/hitokoto.js' | relative_url }}" defer></script>
 
-<div class="mainpage-bg">
+<div class="mainpage-bg home-stage">
     <div class="headfront">
+        {%- comment -%}
+        The artwork and its viewfinder marks. While the page leaves the hero,
+        js/motion.js narrows this layer to a frame and then shuts it, so the
+        post list arrives on the plain page colour.
+        {%- endcomment -%}
+        <div class="art-stage" aria-hidden="true">
+            <div class="art-image"></div>
+            <i class="art-corner art-corner-tl"></i>
+            <i class="art-corner art-corner-tr"></i>
+            <i class="art-corner art-corner-bl"></i>
+            <i class="art-corner art-corner-br"></i>
+        </div>
         <div class="headfront-text">
             <p class="headfront-quote">「この幻想郷では常識に囚われてはいけないのですね！」</p>
 
