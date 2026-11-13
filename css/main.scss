@@ -82,8 +82,7 @@ a.uuz-post-entry {
 }
 
 a.uuz-post-entry .date {
-    font-size: 11px;
-    font-size: .4rem;
+    font-size: .7rem;
     color: #6ff;
     text-transform: uppercase;
 }
@@ -97,7 +96,7 @@ a.uuz-post-entry .headline {
     display: block;
 }
 
-a.uuz-post-entry .headline::hover, a.uuz-post-entry .headline::focus {
+a.uuz-post-entry .headline:hover, a.uuz-post-entry .headline:focus {
     background: -webkit-linear-gradient(#f13304,#f13304);
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -105,6 +104,53 @@ a.uuz-post-entry .headline::hover, a.uuz-post-entry .headline::focus {
 }
 
 // Banners
+.home-post-cover {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: cover;
+}
+
+@include media-breakpoint-up(xxl) {
+    .home-post-media {
+        flex: 0 0 auto;
+        width: 27.777778%; // Two thirds of the original col-lg-5 (5 / 12).
+    }
+
+    .home-post-details {
+        flex: 1 1 0;
+        width: auto;
+    }
+
+    a.uuz-post-entry {
+        margin-bottom: 1rem;
+    }
+
+    .uuz-post-entry .decr-cornercontainer {
+        margin-bottom: 0;
+    }
+}
+
+.home-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0 2rem;
+    border-top: 1px solid rgba(102, 255, 255, .25);
+
+    .page-status {
+        color: $secondary;
+        font-size: .8rem;
+    }
+
+    [aria-disabled="true"] {
+        opacity: .35;
+    }
+}
+
 .banner {
     display: block;
 }
@@ -496,7 +542,7 @@ a {
 
     // They saved my life
     // https://stackoverflow.com/a/24566951
-    display: inline table;
+    display: inline-table;
 
     word-break: break-word;
     cursor: pointer;
@@ -614,4 +660,7 @@ code div:before {
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import "syntax-highlighting";
+
+// Homepage blocks last, so they can refine shared component styles.
+@import "home-blocks";
 

@@ -51,7 +51,7 @@
         content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}{% else %}{{ site.description | escape }}{% endif %}">
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ " /feed.xml" | prepend:
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend:
         site.baseurl | prepend: site.url }}">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@
     <!-- Bootstrap advises me to place their JS on the end of <body>. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.5.0/luxon.min.js" integrity="sha512-SN7iwxiJt9nFKiLayg3NjLItXPwRfBr4SQSIugMeBFrD4lIFJe1Z/exkTZYAg3Ul+AfZEGws2PQ+xSoaWfxRQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <link rel="stylesheet" href="{{ " /css/main.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
 
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
@@ -75,10 +75,11 @@
     </script>
 </head>
 
-<body>
-    <div class="fade-show" id="loading-screen">
-        <div class="loading-bg h-100 w-100 position-fixed z-3"></div>
-        <div class="d-flex flex-nowrap position-fixed loading-widget z-3">
+<body class="{% if page.url == '/' %}is-home{% endif %}">
+    <script>document.documentElement.classList.add('is-loading');</script>
+    <div id="loading-screen" role="status" aria-live="polite" aria-label="页面加载中">
+        <div class="loading-bg h-100 w-100"></div>
+        <div class="d-flex flex-nowrap loading-widget">
             <div>
                 <img height="120px" width="120px" src="/img/loadAnime.gif" alt="Loading animation">
             </div>
@@ -89,13 +90,8 @@
         </div>
     </div>
 
-    <script>
-        $('#loading-screen').css('visibility', 'visible');
-        $(document).ready(() => {
-            $('#loading-screen').css('opacity', 0.0);
-            setTimeout(() => $('#loading-screen').css('display', 'none'), 1500);
-        });
-    </script>
+    <script src="{{ '/js/page-loader.js' | relative_url }}" defer></script>
+    <script src="{{ '/js/gensokyo-era.js' | relative_url }}" defer></script>
 
 
     <nav class="navbar sticky-top navbar-expand top-bg" id="global-navbar">
@@ -110,7 +106,7 @@
             <div class="collapse navbar-collapse" id="menubar-collapse">
                 <ul class="navbar-nav me-auto align-items-center">
                     {% for page in site.pages %}
-                    {% if page.title %}
+                    {% if page.title and page.permalink %}
                     <li class="nav-item">
                         <a href="{{ page.permalink | prepend: site.baseurl }}" class="nav-link">{{page.title}}</a>
                     </li>

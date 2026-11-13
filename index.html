@@ -2,106 +2,99 @@
 layout: default
 ---
 
-<script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        var element = document.querySelector(".headfront-text");
-        element.style.opacity = 1;
-        element.style.transform = "translateX(0)";
-    });
-</script>
+<script src="{{ '/js/home-scroll.js' | relative_url }}" defer></script>
+<script src="{{ '/js/site-stats.js' | relative_url }}" defer></script>
+<script src="{{ '/js/hitokoto.js' | relative_url }}" defer></script>
 
 <div class="mainpage-bg">
     <div class="headfront">
         <div class="headfront-text">
-            <p style="font-size: 20px;margin-left: 20px;padding-top: 40px;color: white;">
-                「この幻想郷では常識に囚われてはいけないのですね！」</p>
-            <div style="margin-left: 20px;color: white;position: absolute;bottom: 20px;">
-                <p style="font-size: 15px;">VOR Hakugyokurou</p>
-                <p style="font-size: 30px;">THYuyuko_051130</p>
-                <p style="font-size:40px;margin-top: -40px;">▂▂</p>
-                <br>
+            <p class="headfront-quote">「この幻想郷では常識に囚われてはいけないのですね！」</p>
+            <div class="headfront-identity">
+                {% include identity.html avatar_size=120 %}
             </div>
         </div>
     </div>
 
-
-    <div class="container">
+    <div class="container" id="home-content">
         <div class="decr-compass mb-3"></div>
         <div class="row">
-            <div class="col">
-                <div class="d-flex flex-wrap">
-                    <img class="img-fluid decr-led" src="/img/widget-12-01.gif" alt="">
-                    <img src="/img/widget-bars-horizontal.png" class="decr-led-side" alt="">
-                    <img src="/img/widget-09-01.gif" style="margin-bottom: -5px;" alt="">
+            {% include home-sidebar.html %}
+            <main class="col-lg-9 order-1 home-posts" aria-label="文章列表">
+
+                <div class="home-posts-decor">
+                    <img class="decr-led" src="{{ '/img/widget-12-01.gif' | relative_url }}" width="320" height="61"
+                        alt="">
+                    <img class="decr-led-side" src="{{ '/img/widget-bars-horizontal.png' | relative_url }}" width="370"
+                        height="26" alt="">
+                    <img class="decr-led-grid" src="{{ '/img/widget-09-01.gif' | relative_url }}" width="227" height="63"
+                        alt="">
                 </div>
-                <hr>
-                <div class="d-flex flex-column flex-nowrap">
-                    {% for post in site.posts %}
-                        <a href="{{ post.url | prepend: site.baseurl }}" class="decr-cornerhoverarea uuz-post-entry">
+                
+                <section class="home-block" aria-labelledby="home-proj-heading">
+                    <h2 class="section-heading" id="home-proj-heading">.\ PROJ.</h2>
+                    <div class="proj-grid">
+                        <a class="proj-card decr-cornerhoverarea" href="#" aria-label="项目一（链接占位）">
+                            <div class="decr-cornercontainer">
+                                <img class="proj-cover" src="{{ '/img/proj-placeholder-1.png' | relative_url }}"
+                                    width="960" height="540" alt="项目一封面（占位图）" loading="lazy">
+                                <div class="proj-overlay">
+                                    <span class="proj-overlay-title">Space Creator EX.</span>
+                                    <span class="proj-overlay-text">包含多个模组/原版子服务器的 Minecraft 服务器群组</span>
+                                </div>
+                                <div class="corner-tl"></div>
+                                <div class="corner-tr"></div>
+                                <div class="corner-bl"></div>
+                                <div class="corner-br"></div>
+                            </div>
+                        </a>
+                        <a class="proj-card decr-cornerhoverarea" href="#" aria-label="项目二（链接占位）">
+                            <div class="decr-cornercontainer">
+                                <img class="proj-cover" src="{{ '/img/proj-placeholder-2.png' | relative_url }}"
+                                    width="960" height="540" alt="项目二封面（占位图）" loading="lazy">
+                                <div class="proj-overlay">
+                                    <span class="proj-overlay-title">穗织庄园 / Hoori Manor</span>
+                                    <span class="proj-overlay-text">为社群 ⌈蛋卷加糖同好会⌋ 的附属 Minecraft 服务器</span>
+                                </div>
+                                <div class="corner-tl"></div>
+                                <div class="corner-tr"></div>
+                                <div class="corner-bl"></div>
+                                <div class="corner-br"></div>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="home-block" aria-labelledby="home-article-heading">
+                    <h2 class="section-heading" id="home-article-heading">.\ ARTICLE</h2>
+                    <div class="d-flex flex-column flex-nowrap">
+                        {% for post in paginator.posts %}
+                        {% assign cover = post.banner | default: '/img/default-post-banner.png' %}
+                        <a href="{{ post.url | relative_url }}" class="decr-cornerhoverarea uuz-post-entry">
                             <div class="row">
-                                <section class="col-md-4 col-lg-5">
+                                <section class="col-md-4 col-lg-5 home-post-media">
                                     <div class="decr-cornercontainer">
-                                        {% if post.banner %}
-                                        <img alt="{{ post.title }}" src="{{ post.banner | prepend: site.baseurl }}"
-                                            class="img-fluid aspect-177" height="450" width="600">
-                                        {% else %}
-                                        <img class="img-fluid aspect-177 visibility-hidden" height="450" width="600" alt="">
-                                        {% endif %}
+                                        <img alt="{{ post.title | escape }}" src="{{ cover | relative_url }}"
+                                            class="home-post-cover" width="960" height="540">
                                         <div class="corner-tl"></div>
                                         <div class="corner-tr"></div>
                                         <div class="corner-bl"></div>
                                         <div class="corner-br"></div>
                                     </div>
                                 </section>
-                                <section class="col-md-8 col-lg-7">
-                                    <div class="date hidden-sm-down">POSTED // {{ post.date | date: "%A, %B %-d, %Y" }}
-                                    </div>
+                                <section class="col-md-8 col-lg-7 home-post-details">
+                                    <div class="date">POSTED // {{ post.date | date: "%A, %B %-d, %Y" }}</div>
                                     <hr class="opacity-50">
                                     <div class="headline en">{{ post.title }}</div>
                                 </section>
                             </div>
                         </a>
-                    <hr class="opacity-50">
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-lg-3 d-flex flex-column flex-nowrap sticky-lg-top sidebar-sticky-top align-self-start">
-                <div class="hr double-stacked">
-                    <div class="decr-tickhr-container">
-                        <hr class="decr-rickhr-hr mt-0 mb-1">
-                        <div class="decr-rulehr-tick start-33 opacity-50 vr"></div>
-                        <div class="decr-rulehr-tick end-33 opacity-50 vr"></div>
+                        <hr class="opacity-50">
+                        {% endfor %}
                     </div>
-                    <div class="decr-tickhr-container">
-                        <hr class="decr-rickhr-hr m-0 opacity-33">
-                        <div class="decr-rulehr-tick start-33 opacity-50 vr"></div>
-                        <div class="decr-rulehr-tick end-33 opacity-50 vr"></div>
-                    </div>
-                </div>
-                <div class="dotted-bg p-3">
-                    {% include time.html %}
-                    <hr>
-                    <a class="news-thumb" href="https://play.mcmod.cn/sv20184362.html">
-                        <img alt="SCEX sevrer banner" src="{{ "/img/bannerscex.webp" | prepend: site.baseurl }}"
-                            style="width: 100%;"><br />
-                        <div class="corner-tl"></div>
-                        <div class="corner-tr"></div>
-                        <div class="corner-bl"></div>
-                        <div class="corner-br"></div>
-                    </a>
-                    <a class="news-thumb" href="https://space.bilibili.com/351616837/">
-                        <img alt="SCEX sevrer banner" src="{{ "/img/bannerbc.webp" | prepend: site.baseurl }}"
-                            style="width: 100%;"><br />
-                        <div class="corner-tl"></div>
-                        <div class="corner-tr"></div>
-                        <div class="corner-bl"></div>
-                        <div class="corner-br"></div>
-                    </a>
-                </div>
-                <hr>
-                <img src="/img/widget-sidebar.png" style="width: 60%;margin-top: -10px;margin-bottom: -10px;">
-                <hr>
-            </div>
+                    {% include pagination.html %}
+                </section>
+            </main>
         </div>
     </div>
 </div>

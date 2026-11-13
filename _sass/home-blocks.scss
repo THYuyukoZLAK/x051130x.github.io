@@ -1,0 +1,302 @@
+// Homepage blocks: identity row, sidebar stats card, section headings,
+// project grid and the LED decor strip. Imported last so it can refine
+// the shared component styles defined earlier.
+
+// --- Identity (hero bottom-left + sidebar card) -----------------------------
+
+.identity-row {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    flex-wrap: nowrap;
+}
+
+.identity-avatar {
+    flex: 0 0 auto;
+
+    .decr-cornercontainer {
+        margin-bottom: 0;
+        max-width: 100%;
+    }
+}
+
+.identity-avatar-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.identity-text {
+    min-width: 0;
+}
+
+.identity-name,
+.identity-handle,
+.identity-rule {
+    margin: 0;
+    color: #fff;
+}
+
+.identity-name {
+    font-size: .95rem;
+    line-height: 1.3;
+}
+
+.identity-handle {
+    font-size: 1.55rem;
+    line-height: 1.2;
+}
+
+.identity-rule {
+    font-size: 2.4rem;
+    line-height: .5;
+    margin-top: -.1rem;
+    letter-spacing: .05em;
+}
+
+// --- Sidebar card ----------------------------------------------------------
+
+.site-card {
+    margin-top: 1rem;
+    border: 1px solid rgba(3, 164, 251, .45);
+    background: transparent;
+    padding: .85rem;
+
+    // The sidebar column is much narrower than the hero, so the shared
+    // identity block is scaled down here to stay on one line each.
+    .identity-name {
+        font-size: .72rem;
+        white-space: nowrap;
+    }
+
+    .identity-handle {
+        font-size: 1.05rem;
+        white-space: nowrap;
+    }
+
+    .identity-rule {
+        font-size: 1.5rem;
+    }
+}
+
+.site-stats {
+    width: 100%;
+    margin: .9rem 0 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+
+    th,
+    td {
+        padding: .4rem .15rem;
+        border-top: 1px solid rgba(102, 255, 255, .18);
+        font-weight: 400;
+        overflow-wrap: anywhere;
+    }
+
+    th {
+        font-size: .7rem;
+        letter-spacing: .04em;
+        color: $secondary;
+        border-top: 0;
+    }
+
+    td {
+        font-size: .95rem;
+        color: #d2f7fd;
+    }
+}
+
+// --- Hitokoto --------------------------------------------------------------
+
+.hitokoto {
+    margin-top: 1rem;
+    padding: .15rem 0 .15rem .7rem;
+    border-left: 2px solid rgba(3, 164, 251, .55);
+}
+
+.hitokoto-text {
+    margin: 0;
+    font-size: .82rem;
+    line-height: 1.55;
+    color: #d2f7fd;
+}
+
+.hitokoto-from {
+    margin: .3rem 0 0;
+    font-size: .7rem;
+    color: $secondary;
+}
+
+// --- Section headings ------------------------------------------------------
+
+.section-heading {
+    margin: 2.25rem 0 .85rem;
+    padding-bottom: .45rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #f13304;
+    border-bottom: 1px solid #f13304;
+}
+
+.home-block .section-heading:first-child {
+    margin-top: 1.25rem;
+}
+
+// --- Project grid ----------------------------------------------------------
+
+.proj-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.proj-card {
+    position: relative;
+    display: block;
+
+    // Opt out of the global link sweep (a::before grows a $primary block).
+    &::before {
+        content: none;
+    }
+
+    .decr-cornercontainer {
+        margin-bottom: 0;
+    }
+}
+
+// Hover reveal: a dark scrim with a title and a short description.
+.proj-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .45rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, .72);
+    opacity: 0;
+    transition: opacity .25s ease;
+    pointer-events: none;
+    text-align: left;
+}
+
+.proj-overlay-title {
+    color: #d2f7fd;
+    font-size: .95rem;
+    line-height: 1.35;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .25s ease .05s, transform .25s ease .05s;
+}
+
+.proj-overlay-text {
+    color: $secondary;
+    font-size: .78rem;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .25s ease .1s, transform .25s ease .1s;
+}
+
+.proj-card:hover .proj-overlay,
+.proj-card:focus-visible .proj-overlay {
+    opacity: 1;
+}
+
+.proj-card:hover .proj-overlay-title,
+.proj-card:hover .proj-overlay-text,
+.proj-card:focus-visible .proj-overlay-title,
+.proj-card:focus-visible .proj-overlay-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .proj-overlay,
+    .proj-overlay-title,
+    .proj-overlay-text {
+        transition: none;
+    }
+}
+
+.proj-cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+@media (max-width: 575.98px) {
+    .proj-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+// --- Homepage navbar -------------------------------------------------------
+
+// Only the homepage drops the solid bar: the hero slides underneath it, so the
+// transparent navbar really shows the artwork instead of the body colour.
+.is-home .mainpage-bg {
+    margin-top: calc(-1 * #{$menubar-height});
+}
+
+.is-home .headfront {
+    height: 100vh;
+}
+
+// Keep the opening quote clear of the now-overlapping navbar.
+.is-home .headfront-quote {
+    padding-top: calc(#{$menubar-height} + 2.5rem);
+}
+
+.is-home #global-navbar.top-bg {
+    background-color: transparent;
+    transition: background-color .25s ease;
+}
+
+.is-home #global-navbar.top-bg.is-solid,
+.is-home #global-navbar.top-bg:focus-within {
+    background-color: #093750;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .is-home #global-navbar.top-bg {
+        transition: none;
+    }
+}
+
+// --- LED decor strip -------------------------------------------------------
+
+.home-posts-decor {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-wrap: wrap;
+    margin-bottom: .5rem;
+
+    img {
+        flex: 0 0 auto;
+        max-width: 100%;
+        height: auto;
+    }
+
+    // Natural size: the three widgets sit side by side instead of being
+    // pulled under each other with a negative margin.
+    .decr-led-side {
+        height: 26px;
+        width: auto;
+        margin: 0;
+    }
+
+    .decr-led-grid {
+        margin-left: auto;
+    }
+}

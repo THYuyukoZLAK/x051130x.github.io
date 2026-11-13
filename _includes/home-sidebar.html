@@ -1,0 +1,44 @@
+<aside class="col-lg-3 order-2 order-lg-0 d-flex flex-column flex-nowrap sticky-lg-top sidebar-sticky-top align-self-start home-sidebar" aria-label="站点信息">
+                <div class="hr double-stacked">
+                    <div class="decr-tickhr-container">
+                        <hr class="decr-rickhr-hr mt-0 mb-1">
+                        <div class="decr-rulehr-tick start-33 opacity-50 vr"></div>
+                        <div class="decr-rulehr-tick end-33 opacity-50 vr"></div>
+                    </div>
+                    <div class="decr-tickhr-container">
+                        <hr class="decr-rickhr-hr m-0 opacity-33">
+                        <div class="decr-rulehr-tick start-33 opacity-50 vr"></div>
+                        <div class="decr-rulehr-tick end-33 opacity-50 vr"></div>
+                    </div>
+                </div>
+                <div class="dotted-bg p-3">
+                    {% include time.html %}
+                </div>
+                <div class="hitokoto" id="hitokoto" aria-live="polite">
+                    <p class="hitokoto-text" id="hitokoto-text">正在获取一言…</p>
+                    <p class="hitokoto-from" id="hitokoto-from" hidden></p>
+                </div>
+                <div class="site-card">
+                    {% include identity.html avatar_size=72 %}
+                    <table class="site-stats" data-visits-api="{{ site.visits_api | default: '/visits.php' }}"
+                        aria-label="站点数据">
+                        <thead>
+                            <tr>
+                                <th scope="col">文章</th>
+                                <th scope="col">repo</th>
+                                <th scope="col">月访问</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ site.posts.size }}</td>
+                                <td id="stat-repos" data-username="{{ site.github_username | default: 'THYuyukoZLAK' }}">—</td>
+                                <td id="stat-visits">—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <img src="/img/widget-sidebar.png" style="width: 60%;margin-top: -10px;margin-bottom: -10px;" alt="">
+                <hr>
+            </aside>

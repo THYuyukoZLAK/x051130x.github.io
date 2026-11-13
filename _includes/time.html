@@ -1,5 +1,24 @@
+{%- comment -%}
+幻想乡纪年：三要素各自独立循环，总周期 60 年。
+  日 / 月 / 星   —— 3
+  春 / 夏 / 秋 / 冬 —— 4
+  火 / 水 / 木 / 金 / 土 —— 5
+基准：2010 年 = 第125季 星与夏与土之年。
+这里用构建时间算出静态文本（无 JS 时也正确），前端再由 gensokyo-era.js
+按访客当前年份刷新一次。
+{%- endcomment -%}
+{%- assign build_year = site.time | date: "%Y" | plus: 0 -%}
+{%- assign offset = build_year | minus: 2010 -%}
+{%- assign offset60 = offset | modulo: 60 -%}
+{%- assign season_no = 125 | plus: offset -%}
+{%- assign day_names = "日,月,星" | split: "," -%}
+{%- assign season_names = "春,夏,秋,冬" | split: "," -%}
+{%- assign element_names = "火,水,木,金,土" | split: "," -%}
+{%- assign day_i = offset60 | plus: 2 | modulo: 3 -%}
+{%- assign season_i = offset60 | plus: 1 | modulo: 4 -%}
+{%- assign element_i = offset60 | plus: 4 | modulo: 5 -%}
 <div>
-	<div>第139季 月与冬与金之年</div>
+	<div class="time-era" id="gensokyo-era">第{{ season_no }}季 {{ day_names[day_i] }}与{{ season_names[season_i] }}与{{ element_names[element_i] }}之年</div>
 	<div id="banner-time">Loading time...</div>
 	<div id="banner-date">Loading date...</div>
 </div>

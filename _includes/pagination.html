@@ -1,0 +1,15 @@
+<nav class="home-pagination" aria-label="文章分页">
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}#home-content" rel="prev">← 上一页</a>
+    {% else %}
+    <span aria-disabled="true">← 上一页</span>
+    {% endif %}
+    <span class="page-status" aria-current="page">
+        第 {{ paginator.page }} / {{ paginator.total_pages }} 页 · 共 {{ paginator.total_posts }} 篇
+    </span>
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}#home-content" rel="next">下一页 →</a>
+    {% else %}
+    <span aria-disabled="true">下一页 →</span>
+    {% endif %}
+</nav>

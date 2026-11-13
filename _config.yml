@@ -12,7 +12,16 @@ description: "Nice blog of uuz"
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://x051130x.github.io" # the base hostname & protocol for your site
-github_username: x051130x
+github_username: THYuyukoZLAK
+
+plugins:
+  - jekyll-paginate
+paginate: 10
+paginate_path: "/page/:num/"
+
+# 月访问量统计接口（visits.php）。部署到 InfinityFree 等 PHP 环境时，
+# 若与站点不同源，请改成完整地址，例如 https://example.infinityfree.me/visits.php
+visits_api: "/visits.php"
 
 include:
   - docs/_sidebar.md
@@ -22,6 +31,8 @@ exclude:
   - vendor
   - Gemfile
   - Gemfile.lock
+  # PHP 接口需单独部署到支持 PHP 的主机，不随静态站点发布源码
+  - visits.php
 
 defaults:
   - scope:
