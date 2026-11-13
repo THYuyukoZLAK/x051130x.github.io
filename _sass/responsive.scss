@@ -302,19 +302,6 @@
     }
 }
 
-// Entrance, tied to the loading curtain instead of inline jQuery.
-html.is-loading {
-    .postbody {
-        opacity: 0;
-        transform: translateY(200px);
-    }
-
-    .post-sidebar {
-        opacity: 0;
-        transform: translateX(-100px);
-    }
-}
-
 // --- Loading curtain --------------------------------------------------------
 
 @include media-breakpoint-down(sm) {
@@ -323,12 +310,5 @@ html.is-loading {
         bottom: $sp-4;
         padding-left: 0;
         white-space: nowrap;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .postbody,
-    .post-sidebar {
-        transition: none;
     }
 }

@@ -1,0 +1,291 @@
+// Motion. Everything here extends effects the site already had: the loading
+// curtain, the hero entrance, the corner marks, the section rules.
+//
+// State classes on <html> (set by the inline script in the layout):
+//   js-motion    scripts are running and motion is allowed
+//   is-entering  page contents are in their pre-entrance state
+//   is-loading   the loading curtain is up
+//
+// Only transform, opacity and clip-path are animated. Four durations:
+$t-fast: 120ms;   // hover feedback
+$t-base: 200ms;   // overlays, corner marks
+$t-enter: 320ms;  // entrances
+$t-page: 500ms;   // boot sequence parts and page transitions
+$ease: cubic-bezier(.2, 0, 0, 1);
+
+// --- M1: hero boot sequence -------------------------------------------------
+// Quote types out, the site name slides in, corner marks close in on the
+// avatar and the latest post, the clock and the scroll cue light up last.
+// The last part starts at 700ms and the whole sequence is over by 900ms.
+
+.headfront-quote .ch {
+    transition: opacity 0s linear calc(var(--i, 0) * 16ms);
+}
+
+.headfront-brand-name {
+    transition: transform $t-enter $ease 150ms, opacity $t-enter $ease 150ms;
+}
+
+.headfront-brand-latin {
+    transition: letter-spacing $t-page $ease 250ms, opacity $t-enter $ease 250ms;
+}
+
+.headfront-brand-rule {
+    transform-origin: left;
+    transition: transform $t-page $ease 300ms;
+}
+
+.headfront-brand-tagline {
+    transition: opacity $t-enter $ease 450ms;
+}
+
+.headfront-identity {
+    transition: opacity $t-enter $ease 350ms;
+}
+
+.headfront-latest {
+    transition: transform $t-enter $ease 450ms, opacity $t-enter $ease 450ms;
+}
+
+.headfront-clock {
+    transition: opacity $t-enter $ease 550ms;
+}
+
+.headfront-scroll {
+    transition: opacity $t-base $ease 700ms, color $t-fast;
+}
+
+.headfront-text {
+    .corner-tl,
+    .corner-tr,
+    .corner-bl,
+    .corner-br {
+        transition: transform $t-base $ease 500ms, opacity $t-base $ease 500ms;
+    }
+}
+
+.is-entering {
+    .headfront-quote .ch {
+        opacity: 0;
+        transition-delay: 0s;
+    }
+
+    .headfront-brand-name {
+        opacity: 0;
+        transform: translateX(-24px);
+    }
+
+    .headfront-brand-latin {
+        opacity: 0;
+        letter-spacing: .6em;
+    }
+
+    .headfront-brand-rule {
+        transform: scaleX(0);
+    }
+
+    .headfront-brand-tagline,
+    .headfront-identity,
+    .headfront-clock,
+    .headfront-scroll {
+        opacity: 0;
+    }
+
+    .headfront-latest {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    .headfront-text {
+        .corner-tl,
+        .corner-tr,
+        .corner-bl,
+        .corner-br {
+            opacity: 0;
+        }
+
+        .corner-tl { transform: translate(-10px, -10px); }
+        .corner-tr { transform: translate(10px, -10px); }
+        .corner-bl { transform: translate(-10px, 10px); }
+        .corner-br { transform: translate(10px, 10px); }
+    }
+}
+
+// The cue keeps a slow nod once it is on screen.
+@keyframes uuz-nod {
+    50% { transform: translateY(3px); }
+}
+
+.js-motion .headfront-scroll-mark {
+    animation: uuz-nod 1.8s ease-in-out 1.2s infinite;
+}
+
+// --- Post page entrance -----------------------------------------------------
+
+.postbody {
+    transition: transform .6s cubic-bezier(0, 0, 0, 1), opacity .6s cubic-bezier(0, 0, 0, 1);
+}
+
+.post-head {
+    transition: opacity $t-enter $ease;
+}
+
+.is-entering {
+    .postbody {
+        opacity: 0;
+        transform: translateY(200px);
+    }
+
+    .post-sidebar {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    .post-head {
+        opacity: 0;
+    }
+}
+
+// --- M2: corner lock --------------------------------------------------------
+// On hover the four marks close in from outside while they turn red, and the
+// cover grows a little inside its frame (the clip keeps its outline still).
+
+@keyframes uuz-lock-tl { from { transform: translate(-6px, -6px); } }
+@keyframes uuz-lock-tr { from { transform: translate(6px, -6px); } }
+@keyframes uuz-lock-bl { from { transform: translate(-6px, 6px); } }
+@keyframes uuz-lock-br { from { transform: translate(6px, 6px); } }
+
+.decr-cornerhoverarea:hover,
+.decr-cornerhoverarea:focus-visible {
+    .corner-tl { animation: uuz-lock-tl $t-base $ease both; }
+    .corner-tr { animation: uuz-lock-tr $t-base $ease both; }
+    .corner-bl { animation: uuz-lock-bl $t-base $ease both; }
+    .corner-br { animation: uuz-lock-br $t-base $ease both; }
+}
+
+.decr-cornerhoverarea {
+    .home-post-cover,
+    .proj-cover {
+        clip-path: inset(0);
+        transition: transform $t-base $ease, clip-path $t-base $ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+        .home-post-cover,
+        .proj-cover {
+            transform: scale(1.03);
+            clip-path: inset(1.456%); // (1 - 2 * 1.456%) * 1.03 = 1
+        }
+    }
+}
+
+// --- M3: scroll reveal ------------------------------------------------------
+// Section rules draw from the left and their label follows; list entries rise
+// one after another. js/motion.js adds .is-revealed once, when each scrolls
+// into view. Without scripts none of this applies and everything is visible.
+
+.js-motion {
+    .home-posts .section-heading,
+    .postbody h1 {
+        border-bottom-color: transparent;
+        background: linear-gradient($c-alert, $c-alert) no-repeat left bottom;
+        background-size: 0 1px;
+        color: transparent;
+        transition: background-size $t-enter $ease, color $t-base $ease 150ms;
+
+        &.is-revealed {
+            background-size: 100% 1px;
+            color: $c-alert;
+        }
+    }
+
+    // Inside an article the heading text is content: it is never hidden,
+    // only its rule draws in.
+    .postbody h1 {
+        color: $c-alert;
+    }
+
+    .home-posts .uuz-post-entry,
+    .proj-card {
+        &:not(.is-revealed) {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        &.is-revealing {
+            transition: opacity $t-enter $ease, transform $t-enter $ease;
+            transition-delay: calc(var(--reveal-i, 0) * 60ms);
+        }
+    }
+}
+
+// --- M4: page transitions ---------------------------------------------------
+// Moving between pages cross-fades, and a post's cover travels from the list
+// into the post header (both carry the same view-transition-name). Browsers
+// without cross-document view transitions simply navigate.
+
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation-duration: $t-base;
+}
+
+::view-transition-new(root) {
+    animation-duration: $t-enter;
+}
+
+::view-transition-group(*) {
+    animation-duration: $t-page;
+    animation-timing-function: $ease;
+}
+
+// --- M5 + M6: the artwork reacts to scroll and pointer ----------------------
+// Slightly oversized so that neither movement shows an edge.
+
+.is-home .mainpage-bg::before {
+    scale: 1.02;
+    translate: var(--art-x, 0) var(--art-y, 0);
+    transition: translate .25s ease-out;
+}
+
+@keyframes uuz-art-recede {
+    to {
+        scale: 1.08;
+        opacity: .75;
+    }
+}
+
+@supports (animation-timeline: scroll()) {
+    .js-motion.is-home .mainpage-bg::before,
+    .js-motion .is-home .mainpage-bg::before {
+        animation: uuz-art-recede linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 100vh;
+    }
+}
+
+// --- Reduced motion ---------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0s !important;
+    }
+
+    .is-home .mainpage-bg::before {
+        animation: none !important;
+        scale: 1;
+        translate: none;
+    }
+
+    @view-transition {
+        navigation: none;
+    }
+}

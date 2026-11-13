@@ -16,7 +16,7 @@ layout: default
             <div class="col-lg-3 post-head-media">
                 <div class="decr-cornercontainer">
                     <img alt="" src="{{ cover | relative_url }}" class="home-post-cover" width="960" height="540"
-                        itemprop="image">
+                        itemprop="image" style="view-transition-name: cover-{{ page.url | slugify }}">
                     {% include corners.html %}
                 </div>
             </div>

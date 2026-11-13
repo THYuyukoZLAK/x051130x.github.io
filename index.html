@@ -104,7 +104,8 @@ layout: default
                                 <section class="col-md-4 col-lg-5 home-post-media">
                                     <div class="decr-cornercontainer">
                                         <img alt="{{ post.title | escape }}" src="{{ cover | relative_url }}"
-                                            class="home-post-cover" width="960" height="540" loading="lazy">
+                                            class="home-post-cover" width="960" height="540" loading="lazy"
+                                            style="view-transition-name: cover-{{ post.url | slugify }}">
                                         <div class="corner-tl"></div>
                                         <div class="corner-tr"></div>
                                         <div class="corner-bl"></div>

@@ -629,6 +629,9 @@ code div:before {
 // Article page, built from the homepage components.
 @import "post";
 
+// Entrances, hover feedback, page transitions and scroll-linked motion.
+@import "motion";
+
 // Breakpoint behaviour for every page, written from the phone up.
 @import "responsive";
 

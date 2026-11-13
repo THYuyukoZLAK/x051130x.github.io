@@ -62,6 +62,7 @@ bundle exec jekyll serve --host 127.0.0.1
 | `js/site-stats.js` | 侧栏数据卡的前端取数逻辑（GitHub 仓库数、月访问量） |
 | `_sass/responsive.scss` | 全站断点行为（手机、平板、桌面），最后导入；新增布局规则写在这里 |
 | `js/clock.js` | 时间卡片的时钟，原生脚本，不依赖 jQuery 或 Luxon |
+| `_sass/motion.scss`、`js/motion.js` | 动效：首屏开机序列、角标锁定、滚动入场、页面过渡、主视觉随滚动和鼠标变化；时长变量在样式表顶部 |
 | `_sass/hero.scss` | 首屏内容：站名、最新文章、时钟、向下提示；站名文字在 `_config.yml` 的 `brand_name`、`brand_latin` |
 | `_sass/post.scss` | 文章页样式：头部、侧栏目录、正文面板、章节标题、上一篇/下一篇 |
 | `js/post.js` | 文章页脚本：目录折叠与当前章节高亮、阅读进度条、给独立图片加角标框和图注 |
@@ -122,7 +123,8 @@ GitHub Pages 不执行 PHP，因此线上若未配置该接口，「月访问」
 后续页面位于 `/page/2/`、`/page/3/` 等地址，只在访问相应页时加载该页文章列表。
 未设置 `banner` 的文章自动使用透明默认封面 `img/default-post-banner.png`。
 桌面端侧栏在列表左侧；最宽断点（1400px 及以上）的封面列缩小为原来的 2/3。
-首屏与文章区之间双向滚轮过渡的时长为 400ms，阈值与时长可在 `js/home-scroll.js` 顶部调整。
+首屏与文章区之间的双向滚轮过渡时长为 500ms，鼠标滚轮第一格就触发；触控板和触屏不拦截。时长可在 `js/home-scroll.js` 顶部调整。
+加载幕只在每次浏览器会话的第一个页面出现，最短 0.5 秒、最长 1.2 秒，不等图片；时长在 `js/page-loader.js` 顶部。
 
 As of [protobuf/#11935](https://github.com/protocolbuffers/protobuf/issues/11935), you may need build google-protobuf with `-fno-lto`:
 
