@@ -1,0 +1,29 @@
+// Page ground. A dark, low-saturation navy with two quiet layers on it:
+//   - a blueprint grid that scrolls with the page
+//   - a soft glow pinned to the top of the screen
+// Both are faint on purpose; they are there to keep a long page from reading
+// as one flat block, not to be looked at. Panels that hold long text
+// (.post-panel) paint an opaque ground over the grid.
+
+$grid-step: 28px;
+$grid-line: rgba(102, 255, 255, .035);
+
+body {
+    background-color: $c-bg;
+    background-image:
+        linear-gradient($grid-line 1px, transparent 1px),
+        linear-gradient(90deg, $grid-line 1px, transparent 1px);
+    background-size: $grid-step $grid-step;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 70vh;
+    background: radial-gradient(120% 100% at 50% 0, rgba(3, 164, 251, .1), transparent 70%);
+    pointer-events: none;
+}

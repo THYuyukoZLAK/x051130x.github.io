@@ -22,7 +22,7 @@ html.is-loading #loading-screen {
 }
 
 .loading-bg{
-    background-color: #093750;
+    background-color: #0b2c3d; // same as $c-bar; this file loads before the tokens
 }
 
 .loading-widget {

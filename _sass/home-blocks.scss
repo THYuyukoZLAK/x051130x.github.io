@@ -264,7 +264,7 @@
 
 .is-home #global-navbar.top-bg.is-solid,
 .is-home #global-navbar.top-bg:focus-within {
-    background-color: #093750;
+    background-color: $c-bar;
 }
 
 @media (prefers-reduced-motion: reduce) {

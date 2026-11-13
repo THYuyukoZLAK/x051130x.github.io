@@ -6,10 +6,9 @@ $post-toc-bar: $touch-min; // height of the folded contents bar on phones
 
 // --- Ground -----------------------------------------------------------------
 
-// Plain page colour, like the homepage below its hero.
+// Sits on the page ground, like the homepage below its hero.
 .mainpage-bg.post-page {
     padding-bottom: $sp-5;
-    background-color: $c-bg;
 }
 
 // --- Reading progress -------------------------------------------------------
@@ -218,6 +217,8 @@ $post-toc-bar: $touch-min; // height of the folded contents bar on phones
 
 .post-panel {
     padding: $sp-3;
+    // Opaque, so the ground's grid stays out from under long text.
+    background-color: $c-bg;
     border: 1px solid rgba(102, 255, 255, .12);
 
     @include media-breakpoint-up(md) {
@@ -355,6 +356,7 @@ $post-toc-bar: $touch-min; // height of the folded contents bar on phones
         min-height: 5rem;
         margin-bottom: 0;
         padding: $sp-3;
+        background-color: $c-bg;
     }
 
     &.is-next .decr-cornercontainer {

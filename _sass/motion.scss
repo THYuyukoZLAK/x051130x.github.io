@@ -255,15 +255,6 @@ $ease: cubic-bezier(.2, 0, 0, 1);
 // Without scripts (or with reduced motion) the layer is simply the hero's
 // own background and scrolls away with it.
 
-.mainpage-bg.home-stage {
-    background-color: $c-bg;
-
-    // The artwork comes from .art-stage here, not from the wrapper.
-    &::before {
-        content: none;
-    }
-}
-
 .headfront {
     position: relative;
 }

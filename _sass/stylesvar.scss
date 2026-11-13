@@ -7,13 +7,15 @@ $headings-color-dark: #d2f7fd;
 $primary: #03a4fb;
 $secondary: #abc0ca;
 $body-color-dark: $secondary;
-$body-bg-dark: #022335;
+// Page ground. Deliberately low in saturation: it covers whole pages, and the
+// cyan labels and blue frames need room to stand out against it.
+$body-bg-dark: #05161f;
 // $primary-bg-subtle: $body-color;
 
 // Named tokens for the values the site already uses. New styles should
 // reference these instead of repeating the literals.
 $c-bg: $body-bg-dark;      // page ground
-$c-bar: #093750;           // navbar, sticky panels
+$c-bar: #0b2c3d;           // navbar, sticky panels
 $c-signal: $primary;       // links, interactive
 $c-text: $secondary;       // body copy
 $c-heading: #d2f7fd;       // headings, readouts
@@ -30,7 +32,7 @@ $touch-min: 44px;          // smallest comfortable tap target
 
 // background color for the top widget (navbar, stick-on-top things)
 .top-bg {
-    background-color: #093750;
+    background-color: $c-bar;
 }
 
 @font-face {
