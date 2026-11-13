@@ -1,17 +1,20 @@
 (() => {
     'use strict';
 
-    const timeEl = document.getElementById('banner-time');
-    const dateEl = document.getElementById('banner-date');
-    if (!timeEl && !dateEl) return;
+    // The clock block may appear several times on one page.
+    const timeEls = document.querySelectorAll('[data-clock="time"]');
+    const dateEls = document.querySelectorAll('[data-clock="date"]');
+    if (!timeEls.length && !dateEls.length) return;
 
     const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     const date = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
     function tick() {
         const now = new Date();
-        if (timeEl) timeEl.textContent = time.format(now);
-        if (dateEl) dateEl.textContent = date.format(now);
+        const timeText = time.format(now);
+        const dateText = date.format(now);
+        timeEls.forEach(el => { el.textContent = timeText; });
+        dateEls.forEach(el => { el.textContent = dateText; });
     }
 
     tick();

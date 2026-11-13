@@ -1,0 +1,253 @@
+// Hero contents. The opening quote and the identity block keep their places;
+// the site name fills the middle, the latest post and the clock sit bottom
+// right, and a scroll cue marks the way down.
+//
+//   phone / small tablet        tablet and up (>= 768)
+//   quote                       quote      quote
+//   brand                       brand      .
+//   latest                      identity   latest + clock
+//   identity
+//   clock        scroll         (scroll cue centred on the bottom edge)
+
+$hero-pad: 20px;
+
+.headfront-text {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto auto auto;
+    gap: $sp-3;
+    height: auto;
+    min-height: inherit;
+    padding: 0 $hero-pad $hero-pad;
+}
+
+.headfront-quote {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+// --- Site name --------------------------------------------------------------
+
+.headfront-brand {
+    align-self: center;
+    max-width: 30rem;
+    padding-bottom: 6vh; // sits a little above the true middle
+}
+
+.headfront-brand-name {
+    margin: 0;
+    border: 0;
+    font-size: clamp(1.8rem, calc(1rem + 3.4vw), 3.4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: .08em;
+    color: #fff;
+}
+
+.headfront-brand-latin {
+    margin: $sp-2 0 $sp-3;
+    font-size: clamp(.7rem, calc(.6rem + .4vw), .95rem);
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: $c-heading;
+}
+
+.headfront-brand-tagline {
+    margin: $sp-3 0 0;
+    font-size: .82rem;
+    color: $c-text;
+}
+
+// --- Identity ---------------------------------------------------------------
+
+.headfront-identity {
+    position: static;
+    max-width: 100%;
+}
+
+// --- Latest post and clock --------------------------------------------------
+
+.headfront-aside {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-2;
+    min-width: 0;
+}
+
+.headfront-latest {
+    display: block;
+
+    // Opt out of the global link sweep, like the project cards.
+    &::before {
+        content: none;
+    }
+
+    .decr-cornercontainer {
+        display: flex;
+        flex-direction: column;
+        gap: $sp-1;
+        margin-bottom: 0;
+        padding: $sp-2 $sp-3;
+        background: rgba($c-bg, .55);
+    }
+}
+
+.headfront-latest-label {
+    font-size: .7rem;
+    color: $c-label;
+    text-transform: uppercase;
+}
+
+.headfront-latest-title {
+    font-size: 1.05rem;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: #fdfffe;
+    transition: color .15s;
+}
+
+.headfront-latest:hover .headfront-latest-title,
+.headfront-latest:focus-visible .headfront-latest-title {
+    color: $c-alert;
+}
+
+.headfront-clock {
+    padding: $sp-2 $sp-3;
+    font-size: .85rem;
+    color: $c-text;
+}
+
+// --- Scroll cue -------------------------------------------------------------
+
+.headfront-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: $touch-min;
+    min-height: $touch-min;
+    font-size: .7rem;
+    letter-spacing: .3em;
+    line-height: 1.2;
+    color: $c-label;
+
+    &::before {
+        content: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+        color: #fff;
+    }
+}
+
+.headfront-scroll-mark {
+    font-size: 1rem;
+    letter-spacing: 0;
+}
+
+// --- Phone: one column, clock and cue share the last row --------------------
+
+@include media-breakpoint-down(md) {
+    .headfront-text {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .headfront-quote,
+    .headfront-brand,
+    .headfront-aside,
+    .headfront-identity {
+        grid-column: 1 / -1;
+    }
+
+    // The aside dissolves so its two parts can be placed separately.
+    .headfront-aside {
+        display: contents;
+    }
+
+    .headfront-latest {
+        grid-column: 1 / -1;
+        grid-row: 3;
+    }
+
+    .headfront-identity {
+        grid-row: 4;
+    }
+
+    .headfront-clock {
+        grid-column: 1;
+        grid-row: 5;
+        align-self: center;
+
+        // One line is enough here; the full date is in the strip below.
+        .time-date {
+            display: none;
+        }
+
+        .time-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 $sp-3;
+        }
+    }
+
+    .headfront-scroll {
+        grid-column: 2;
+        grid-row: 5;
+
+        span:first-child {
+            display: none;
+        }
+    }
+}
+
+// --- Tablet and up: identity bottom left, aside bottom right ----------------
+
+@include media-breakpoint-up(md) {
+    .headfront-text {
+        position: relative;
+        grid-template-columns: minmax(0, 1fr) clamp(260px, 28vw, 360px);
+        grid-template-rows: auto 1fr auto;
+    }
+
+    .headfront-quote {
+        grid-column: 1 / -1;
+    }
+
+    .headfront-brand {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .headfront-identity {
+        grid-column: 1;
+        grid-row: 3;
+        align-self: end;
+    }
+
+    .headfront-aside {
+        grid-column: 2;
+        grid-row: 3;
+        align-self: end;
+    }
+
+    .headfront-scroll {
+        position: absolute;
+        left: 50%;
+        bottom: $sp-2;
+        transform: translateX(-50%);
+    }
+}
+
+// Between tablet and desktop the bottom row has no room for a centred cue.
+@include media-breakpoint-between(md, lg) {
+    .headfront-scroll {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .headfront-latest-title {
+        transition: none;
+    }
+}

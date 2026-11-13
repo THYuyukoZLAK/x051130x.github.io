@@ -40,16 +40,21 @@
 
 // --- Hero -------------------------------------------------------------------
 
+// A minimum, not a fixed height: on a short screen (a phone held sideways)
+// the hero grows instead of clipping its contents.
 .headfront {
-    height: calc(100svh - #{$menubar-height});
+    height: auto;
+    min-height: calc(100vh - #{$menubar-height});
+    min-height: calc(100svh - #{$menubar-height});
 }
 
 .is-home .headfront {
-    height: 100svh;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
 }
 
 .headfront-quote {
-    margin-right: 20px;
     font-size: clamp(1rem, calc(.9rem + .5vw), 1.25rem);
 }
 

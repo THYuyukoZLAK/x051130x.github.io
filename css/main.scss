@@ -623,6 +623,9 @@ code div:before {
 // Homepage blocks last, so they can refine shared component styles.
 @import "home-blocks";
 
+// Hero contents: site name, latest post, clock, scroll cue.
+@import "hero";
+
 // Article page, built from the homepage components.
 @import "post";
 
