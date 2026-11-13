@@ -110,14 +110,11 @@ layout: default
                     <h2 class="section-heading" id="home-article-heading">.\ ARTICLE</h2>
                     <div class="d-flex flex-column flex-nowrap">
                         {% for post in paginator.posts %}
-                        {% assign cover = post.banner | default: '/img/default-post-banner.png' %}
                         <a href="{{ post.url | relative_url }}" class="decr-cornerhoverarea uuz-post-entry">
                             <div class="row">
                                 <section class="col-md-4 col-lg-5 home-post-media">
                                     <div class="decr-cornercontainer">
-                                        <img alt="{{ post.title | escape }}" src="{{ cover | relative_url }}"
-                                            class="home-post-cover" width="960" height="540" loading="lazy"
-                                            style="view-transition-name: cover-{{ post.url | slugify }}">
+                                        {% include post-cover.html post=post alt=post.title extra='loading="lazy"' %}
                                         <div class="corner-tl"></div>
                                         <div class="corner-tr"></div>
                                         <div class="corner-bl"></div>

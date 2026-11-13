@@ -126,7 +126,8 @@ GitHub Pages 不执行 PHP，因此线上若未配置该接口，「月访问」
 
 首页使用 `jekyll-paginate` 静态分页，`_config.yml` 中的 `paginate: 10` 控制每页数量。
 后续页面位于 `/page/2/`、`/page/3/` 等地址，只在访问相应页时加载该页文章列表。
-未设置 `banner` 的文章自动使用透明默认封面 `img/default-post-banner.png`。
+未设置 `banner` 的文章不用图片，而是由样式画出一块「编号牌」（`_includes/post-cover.html`、`_sass/log-plate.scss`）：
+编号按发布顺序自动生成（最早一篇是 001），也可以在文章 front matter 里写 `log: 12` 固定。
 桌面端侧栏在列表左侧；最宽断点（1400px 及以上）的封面列缩小为原来的 2/3。
 首屏与文章区之间的双向滚轮过渡时长为 500ms，鼠标滚轮第一格就触发；触控板和触屏不拦截。时长可在 `js/home-scroll.js` 顶部调整。
 加载幕只在每次浏览器会话的第一个页面出现，最短 0.5 秒、最长 1.2 秒，不等图片；时长在 `js/page-loader.js` 顶部。

@@ -2,7 +2,6 @@
 layout: default
 ---
 
-{%- assign cover = page.banner | default: '/img/default-post-banner.png' -%}
 <div class="post-progress" id="post-progress" aria-hidden="true"></div>
 
 <div class="mainpage-bg post-page">
@@ -15,8 +14,7 @@ layout: default
         <header class="row post-head">
             <div class="col-lg-3 post-head-media">
                 <div class="decr-cornercontainer">
-                    <img alt="" src="{{ cover | relative_url }}" class="home-post-cover" width="960" height="540"
-                        itemprop="image" style="view-transition-name: cover-{{ page.url | slugify }}">
+                    {% include post-cover.html post=page extra='itemprop="image"' %}
                     {% include corners.html %}
                 </div>
             </div>

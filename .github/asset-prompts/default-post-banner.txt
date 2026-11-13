@@ -1,6 +1,0 @@
-Asset: img/default-post-banner.png
-Generated with: built-in image_gen tool, transparent_background=true
-Style reference: the site's existing transparent cyan/white decorative widgets.
-
-Final generation prompt:
-Create an extremely minimal decorative blog thumbnail on a genuinely transparent background. Wide 16:9 composition. Draw only four thin pale-cyan corner brackets around a small central empty rectangle, one short horizontal pale-cyan line below it with three short ticks, and one tiny muted-orange square at the right end of the line. The central empty rectangle takes about one third of the canvas width. All interiors and all surrounding space must be fully transparent. Clean flat geometric line art with crisp uniform strokes, suitable for a 250px thumbnail. At least 95 percent empty transparent space. No text, no numbers, no circles, no extra panels, no patterns, no texture, no particles, no shadows, no glow, no background fill, no outer full-canvas border.

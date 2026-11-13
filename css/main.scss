@@ -629,6 +629,9 @@ code div:before {
 // Article page, built from the homepage components.
 @import "post";
 
+// Generated cover for posts without a banner.
+@import "log-plate";
+
 // Site footer.
 @import "footer";
 
