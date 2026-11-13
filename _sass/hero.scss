@@ -46,7 +46,9 @@ $hero-pad: 20px;
 
 .headfront-brand-latin {
     margin: $sp-2 0 $sp-3;
-    font-size: clamp(.7rem, calc(.6rem + .4vw), .95rem);
+    font-family: $font-display;
+    font-size: clamp(.95rem, calc(.8rem + .55vw), 1.3rem);
+    line-height: 1.1;
     letter-spacing: .3em;
     text-transform: uppercase;
     color: $c-heading;

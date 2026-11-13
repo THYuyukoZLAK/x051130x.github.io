@@ -48,7 +48,7 @@ bundle exec jekyll serve --host 127.0.0.1
 | `_includes/` | 时间显示、社交图标等可复用片段 |
 | `css/main.scss` | 样式入口，构建为 `css/main.css` |
 | `_sass/` | 自定义样式及 Bootstrap SCSS；`stylesvar.scss` 定义颜色、字体等变量 |
-| `img/`、`font/` | 图片和本地 JetBrains Mono 字体 |
+| `img/`、`font/` | 图片和本地字体：JetBrains Mono（正文、读数、代码）与 Teko（纯英文标题和大数字，开源许可见 `font/Teko-OFL.txt`） |
 | `SCEX server.html` | SCEX 服务器介绍页，固定地址 `/scex/` |
 | `docs/` | 独立 Docsify 文档入口和 Markdown 文档 |
 | `_config.yml` | 站点名称、URL、包含/排除规则及默认文章目录配置 |
@@ -62,7 +62,6 @@ bundle exec jekyll serve --host 127.0.0.1
 | `js/site-stats.js` | 侧栏数据卡的前端取数逻辑（GitHub 仓库数、月访问量） |
 | `_sass/responsive.scss` | 全站断点行为（手机、平板、桌面），最后导入；新增布局规则写在这里 |
 | `js/clock.js` | 时间卡片的时钟，原生脚本，不依赖 jQuery 或 Luxon |
-| `_sass/ground.scss` | 页面底：底色之上的蓝图网格和顶部微光，网格间距和浓度在文件顶部；底色本身是 `_sass/stylesvar.scss` 的 `$body-bg-dark` |
 | `_data/footer.yml`、`_includes/footer.html`、`_sass/footer.scss` | 页脚：链接、QQ 群号、版权起始年都在数据文件里，增删链接不用动模板；`js/footer.js` 负责群号的复制按钮 |
 | `_sass/motion.scss`、`js/motion.js` | 动效：首屏开机序列、角标锁定、滚动入场、页面过渡、主视觉随滚动和鼠标变化；时长变量在样式表顶部 |
 | `_sass/hero.scss` | 首屏内容：站名、最新文章、时钟、向下提示；站名文字在 `_config.yml` 的 `brand_name`、`brand_latin` |

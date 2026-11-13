@@ -30,6 +30,12 @@ $sp-5: 2.5rem;
 
 $touch-min: 44px;          // smallest comfortable tap target
 
+// Display face for Latin-only headings and large numerals. It is condensed
+// and has no CJK glyphs, so keep it off anything that mixes in Chinese:
+// next to full-width characters it reads as two different sizes.
+// Its letters are small on the body, so sizes run about 1.3x the mono ones.
+$font-display: "Teko", $font-family-base;
+
 // background color for the top widget (navbar, stick-on-top things)
 .top-bg {
     background-color: $c-bar;
@@ -69,4 +75,20 @@ $touch-min: 44px;          // smallest comfortable tap target
     font-display: swap;
     src: url('/font/JetBrainsMono-BoldItalic.woff2') format('woff2'),
         local('JetBrains Mono');
+}
+
+@font-face {
+    font-family: 'Teko';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/font/Teko-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Teko';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/font/Teko-SemiBold.woff2') format('woff2');
 }

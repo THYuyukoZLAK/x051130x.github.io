@@ -23,8 +23,9 @@
     left: 6%;
     right: 6%;
     padding-bottom: 4%;
-    font-size: 11px;
-    font-size: clamp(9px, 5.5cqw, 15px);
+    font-family: $font-display;
+    font-size: 14px;
+    font-size: clamp(12px, 7.5cqw, 20px);
     letter-spacing: .14em;
     color: $c-label;
     border-bottom: 1px solid rgba(3, 164, 251, .6);
@@ -33,9 +34,11 @@
 .log-plate-no {
     left: 6%;
     bottom: 8%;
-    font-size: 30px;
-    font-size: clamp(22px, 24cqw, 84px);
-    font-weight: 700;
+    font-family: $font-display;
+    font-size: 40px;
+    font-size: clamp(30px, 33cqw, 116px);
+    font-weight: 600;
+    line-height: .78; // the face carries a lot of space under its figures
     letter-spacing: .02em;
     color: #fdfffe;
 }
