@@ -44,11 +44,11 @@ bundle exec jekyll serve --host 127.0.0.1
 | `index.html` | 首页，使用 Liquid 遍历 `site.posts` 生成文章列表 |
 | `_posts/` | Markdown 文章；文件顶部的 front matter 指定标题、布局和封面 |
 | `_layouts/default.html` | 全站 HTML 骨架、导航、页脚及公共脚本 |
-| `_layouts/post.html` | 文章页面布局，继承 default，包含侧栏和目录 |
+| `_layouts/post.html` | 文章页面布局，继承 default；头部沿用首页文章条目，左侧栏放时钟和目录 |
 | `_includes/` | 时间显示、社交图标等可复用片段 |
 | `css/main.scss` | 样式入口，构建为 `css/main.css` |
 | `_sass/` | 自定义样式及 Bootstrap SCSS；`stylesvar.scss` 定义颜色、字体等变量 |
-| `img/`、`font/` | 图片和本地 JetBrains Mono 字体 |
+| `img/`、`font/` | 图片和本地字体：JetBrains Mono（正文、读数、代码）与 Teko（纯英文标题和大数字，开源许可见 `font/Teko-OFL.txt`） |
 | `SCEX server.html` | SCEX 服务器介绍页，固定地址 `/scex/` |
 | `docs/` | 独立 Docsify 文档入口和 Markdown 文档 |
 | `_config.yml` | 站点名称、URL、包含/排除规则及默认文章目录配置 |
@@ -60,9 +60,17 @@ bundle exec jekyll serve --host 127.0.0.1
 | `_includes/identity.html` | 头像 + 三行署名的共享片段（Hero 与侧栏卡片共用） |
 | `_sass/home-blocks.scss` | 首页区块样式：身份卡、数据卡、区块标题、项目格与装饰条 |
 | `js/site-stats.js` | 侧栏数据卡的前端取数逻辑（GitHub 仓库数、月访问量） |
+| `_sass/responsive.scss` | 全站断点行为（手机、平板、桌面），最后导入；新增布局规则写在这里 |
+| `js/clock.js` | 时间卡片的时钟，原生脚本，不依赖 jQuery 或 Luxon |
+| `_data/footer.yml`、`_includes/footer.html`、`_sass/footer.scss` | 页脚：链接、QQ 群号、版权起始年都在数据文件里，增删链接不用动模板；`js/footer.js` 负责群号的复制按钮 |
+| `_sass/motion.scss`、`js/motion.js` | 动效：首屏开机序列、角标锁定、滚动入场、页面过渡、主视觉随滚动和鼠标变化；时长变量在样式表顶部 |
+| `_sass/hero.scss` | 首屏内容：站名、最新文章、时钟、向下提示；站名文字在 `_config.yml` 的 `brand_name`、`brand_latin` |
+| `_sass/post.scss` | 文章页样式：头部、侧栏目录、正文面板、章节标题、上一篇/下一篇 |
+| `js/post.js` | 文章页脚本：目录折叠与当前章节高亮、阅读进度条、给独立图片加角标框和图注 |
+| `_includes/tick-rule.html`、`_includes/corners.html` | 双层刻度线、四角角标的共享片段 |
 
 构建流程为 Markdown/Liquid → HTML，SCSS → CSS → Autoprefixer，结果写入 `_site/`。
-页面中的 CDN 脚本、Google Fonts 和服务器状态 API 仍需要网络；Jekyll 预览不执行 PHP。
+页面中的 CDN 脚本和服务器状态 API 仍需要网络；Jekyll 预览不执行 PHP。
 
 ## 首页侧栏数据卡
 
@@ -90,6 +98,10 @@ GitHub Pages 不执行 PHP，因此线上若未配置该接口，「月访问」
 时间卡片下方的一言取自 `https://v1.hitokoto.cn/`，前端缓存 10 分钟；接口不可用时显示内置句子。
 首页导航栏为透明样式（Hero 图铺到导航栏下方），页面向下滚动后自动恢复为实色，其他页面不受影响。
 
+离开首屏时主视觉会收成一个带角标的取景框，再左右合拢，文章列表落在纯色底上；往回滚时倒放。
+各阶段在滚动距离中的起止比例、取景框的宽度和比例都在 `js/motion.js` 的「Shutter timeline」一段常量里。
+未加载脚本或系统开启「减少动态效果」时没有这段动画，主视觉只是首屏的背景，随首屏一起滚走。
+
 ## 幻想乡纪年
 
 时间卡片中的「第 xxx 季 X与X与X之年」由 `_includes/time.html` 计算，不再写死：
@@ -114,9 +126,11 @@ GitHub Pages 不执行 PHP，因此线上若未配置该接口，「月访问」
 
 首页使用 `jekyll-paginate` 静态分页，`_config.yml` 中的 `paginate: 10` 控制每页数量。
 后续页面位于 `/page/2/`、`/page/3/` 等地址，只在访问相应页时加载该页文章列表。
-未设置 `banner` 的文章自动使用透明默认封面 `img/default-post-banner.png`。
+未设置 `banner` 的文章不用图片，而是由样式画出一块「编号牌」（`_includes/post-cover.html`、`_sass/log-plate.scss`）：
+编号按发布顺序自动生成（最早一篇是 001），也可以在文章 front matter 里写 `log: 12` 固定。
 桌面端侧栏在列表左侧；最宽断点（1400px 及以上）的封面列缩小为原来的 2/3。
-首屏与文章区之间双向滚轮过渡的时长为 400ms，阈值与时长可在 `js/home-scroll.js` 顶部调整。
+首屏与文章区之间的双向滚轮过渡时长为 500ms，鼠标滚轮第一格就触发；触控板和触屏不拦截。时长可在 `js/home-scroll.js` 顶部调整。
+加载幕只在每次浏览器会话的第一个页面出现，最短 0.5 秒、最长 1.2 秒，不等图片；时长在 `js/page-loader.js` 顶部。
 
 As of [protobuf/#11935](https://github.com/protocolbuffers/protobuf/issues/11935), you may need build google-protobuf with `-fno-lto`:
 

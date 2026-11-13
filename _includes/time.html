@@ -17,8 +17,8 @@
 {%- assign day_i = offset60 | plus: 2 | modulo: 3 -%}
 {%- assign season_i = offset60 | plus: 1 | modulo: 4 -%}
 {%- assign element_i = offset60 | plus: 4 | modulo: 5 -%}
-<div>
-	<div class="time-era" id="gensokyo-era">第{{ season_no }}季 {{ day_names[day_i] }}与{{ season_names[season_i] }}与{{ element_names[element_i] }}之年</div>
-	<div id="banner-time">Loading time...</div>
-	<div id="banner-date">Loading date...</div>
+<div class="time-block">
+	<div class="time-era" data-gensokyo-era>第{{ season_no }}季 {{ day_names[day_i] }}与{{ season_names[season_i] }}与{{ element_names[element_i] }}之年</div>
+	<div class="time-clock" data-clock="time">--:--:--</div>
+	<div class="time-date" data-clock="date">&nbsp;</div>
 </div>

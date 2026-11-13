@@ -6,13 +6,54 @@ layout: default
 <script src="{{ '/js/site-stats.js' | relative_url }}" defer></script>
 <script src="{{ '/js/hitokoto.js' | relative_url }}" defer></script>
 
-<div class="mainpage-bg">
+<div class="mainpage-bg home-stage">
     <div class="headfront">
+        {%- comment -%}
+        The artwork and its viewfinder marks. While the page leaves the hero,
+        js/motion.js narrows this layer to a frame and then shuts it, so the
+        post list arrives on the plain page colour.
+        {%- endcomment -%}
+        <div class="art-stage" aria-hidden="true">
+            <div class="art-image"></div>
+            <i class="art-corner art-corner-tl"></i>
+            <i class="art-corner art-corner-tr"></i>
+            <i class="art-corner art-corner-bl"></i>
+            <i class="art-corner art-corner-br"></i>
+        </div>
         <div class="headfront-text">
             <p class="headfront-quote">「この幻想郷では常識に囚われてはいけないのですね！」</p>
+
+            <div class="headfront-brand">
+                <h1 class="headfront-brand-name">{{ site.brand_name | default: site.title }}</h1>
+                {% if site.brand_latin %}<p class="headfront-brand-latin">{{ site.brand_latin }}</p>{% endif %}
+                {% include tick-rule.html class="headfront-brand-rule" %}
+                <p class="headfront-brand-tagline">{{ site.description }}</p>
+            </div>
+
             <div class="headfront-identity">
                 {% include identity.html avatar_size=120 %}
             </div>
+
+            <div class="headfront-aside">
+                {% assign latest = site.posts.first %}
+                {% if latest %}
+                <a class="headfront-latest decr-cornerhoverarea" href="{{ latest.url | relative_url }}">
+                    <div class="decr-cornercontainer">
+                        <span class="headfront-latest-label">LATEST // {{ latest.date | date: "%A, %B %-d, %Y" }}</span>
+                        <span class="headfront-latest-title">{{ latest.title }}</span>
+                        {% include corners.html %}
+                    </div>
+                </a>
+                {% endif %}
+                <div class="dotted-bg headfront-clock">
+                    {% include time.html %}
+                </div>
+            </div>
+
+            <a class="headfront-scroll" href="#home-content" aria-label="向下浏览文章">
+                <span>SCROLL</span>
+                <span class="headfront-scroll-mark" aria-hidden="true">▾</span>
+            </a>
         </div>
     </div>
 
@@ -20,7 +61,7 @@ layout: default
         <div class="decr-compass mb-3"></div>
         <div class="row">
             {% include home-sidebar.html %}
-            <main class="col-lg-9 order-1 home-posts" aria-label="文章列表">
+            <main class="col-lg-9 home-posts" aria-label="文章列表">
 
                 <div class="home-posts-decor">
                     <img class="decr-led" src="{{ '/img/widget-12-01.gif' | relative_url }}" width="320" height="61"
@@ -69,13 +110,11 @@ layout: default
                     <h2 class="section-heading" id="home-article-heading">.\ ARTICLE</h2>
                     <div class="d-flex flex-column flex-nowrap">
                         {% for post in paginator.posts %}
-                        {% assign cover = post.banner | default: '/img/default-post-banner.png' %}
                         <a href="{{ post.url | relative_url }}" class="decr-cornerhoverarea uuz-post-entry">
                             <div class="row">
                                 <section class="col-md-4 col-lg-5 home-post-media">
                                     <div class="decr-cornercontainer">
-                                        <img alt="{{ post.title | escape }}" src="{{ cover | relative_url }}"
-                                            class="home-post-cover" width="960" height="540">
+                                        {% include post-cover.html post=post alt=post.title extra='loading="lazy"' %}
                                         <div class="corner-tl"></div>
                                         <div class="corner-tr"></div>
                                         <div class="corner-bl"></div>

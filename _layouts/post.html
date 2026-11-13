@@ -2,76 +2,86 @@
 layout: default
 ---
 
-<style>
-    .timer-line {
-        width: 1px;
-        height: auto;
-        background-color: white;
-        margin: 10px 30px 10px 20px;
-    }
-</style>
-<article class="mt-3">
-    <div class="container-lg d-flex flex-row flex-nowrap">
-        <div class="row uuz-lg-flex-no-wrap flex-wrap-reverse">
-            <div class="col-lg">
-                <div class="bg-primary-subtle p-4">
-                    <h2 itemprop="name headline">{{ page.title }}</h2>
-                    <p class="post-meta">
-                        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-                            {{ page.date | date: "%b %-d, %Y" }}
-                        </time>
-                        {% if page.author %} • <span itemprop="author">
-                            <span itemprop="name">
-                                {{ page.author }}
-                            </span>
-                        </span>
-                        {% endif %}
-                    </p>
-                    <div class="postbody uuz-markdown">
-                        <script>
-                            $(".postbody").css("opacity", "0").css("transform", "translateY(200px)");
-                            $(document).ready(() => {
-                                $(".postbody").css("opacity", "1").css("transform", "translateY(0)");
-                            });
-                        </script>
+<div class="post-progress" id="post-progress" aria-hidden="true"></div>
+
+<div class="mainpage-bg post-page">
+    <article class="container post-layout" itemscope itemtype="https://schema.org/BlogPosting">
+        <div class="decr-compass mb-3"></div>
+
+        <p class="section-heading post-crumb"><a href="{{ '/' | relative_url }}#home-content">.\ ARTICLE</a></p>
+
+        {%- comment -%} The header is the homepage list entry at a larger size. {%- endcomment -%}
+        <header class="row post-head">
+            <div class="col-lg-3 post-head-media">
+                <div class="decr-cornercontainer">
+                    {% include post-cover.html post=page extra='itemprop="image"' %}
+                    {% include corners.html %}
+                </div>
+            </div>
+            <div class="col-lg-9 post-head-text">
+                <div class="post-date">
+                    POSTED //
+                    <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                        {{- page.date | date: "%A, %B %-d, %Y" -}}
+                    </time>
+                    {%- if page.author %} // <span itemprop="author">{{ page.author }}</span>{% endif %}
+                </div>
+                <hr class="opacity-50">
+                <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+            </div>
+        </header>
+
+        <div class="row">
+            <aside class="col-lg-3 sticky-lg-top sidebar-sticky-top align-self-start post-sidebar" aria-label="文章导航">
+                {% include tick-rule.html class="post-sidebar-rule" %}
+                <div class="dotted-bg p-3 post-sidebar-clock">
+                    {% include time.html %}
+                </div>
+                <details class="post-toc" id="uuz-post-toc-box">
+                    <summary>
+                        <span class="post-toc-label">目录</span>
+                        <span class="post-toc-current" id="post-toc-current"></span>
+                    </summary>
+                    <nav class="toc-noborder" id="uuz-post-toc" aria-label="目录">
+                        {% toc %}
+                    </nav>
+                </details>
+            </aside>
+
+            <div class="col-lg-9 post-main">
+                <div class="post-panel">
+                    <div class="postbody uuz-markdown" itemprop="articleBody">
                         {{ content }}
                     </div>
-                    
                 </div>
-            </div>
-            <div class="col-lg-3 mb-3 d-flex flex-column flex-nowrap flex-lg-shrink-1 sticky-lg-top sidebar-sticky-top text-wrap align-self-start">
-                <div class="post-divider"></div>
-                <script>
-                    $(".post-divider").css("width", "0px");
-                    $(document).ready(() => {
-                        $(".post-divider").css("width", "100%");
-                    });
-                </script>
-                <div class="uuz-post-rhs-sidebar">
-                    <script>
-                        $(".uuz-post-rhs-sidebar").css("opacity", "0").css("transform", "translateX(100px)");
-                        $(document).ready(() => {
-                            $(".uuz-post-rhs-sidebar").css("opacity", "1").css("transform", "translateX(0)");
-                        });
-                    </script>
-                    <!--
-                    {% if post.banner %}
-                        <img alt="{{ post.title }}" src="{{ post.banner | prepend: site.baseurl }}" class="img-fluid" width="300">
-                    {% else %}
-                        <img src="/img/guide.webp" class="img-fluid" width="300" height="160" style="visibility: hidden;">
-                    {% endif %}
-                    -->
-                    <div class="top-bg p-3 mb-3">
-                        {% include time.html %}
-                    </div>
-                    <div class="top-bg p-3" style="overflow: auto;">
-                        <div class="toc-noborder" id="uuz-post-toc">
-                            {% toc %}
+
+                <nav class="post-nav" aria-label="相邻文章">
+                    {% if page.previous %}
+                    <a class="post-nav-card decr-cornerhoverarea" href="{{ page.previous.url | relative_url }}" rel="prev">
+                        <div class="decr-cornercontainer">
+                            <span class="post-nav-label">← 上一篇</span>
+                            <span class="post-nav-title">{{ page.previous.title }}</span>
+                            {% include corners.html %}
                         </div>
-                    </div>
-                </div>
+                    </a>
+                    {% else %}
+                    <span class="post-nav-card is-empty" aria-hidden="true"></span>
+                    {% endif %}
+                    {% if page.next %}
+                    <a class="post-nav-card is-next decr-cornerhoverarea" href="{{ page.next.url | relative_url }}" rel="next">
+                        <div class="decr-cornercontainer">
+                            <span class="post-nav-label">下一篇 →</span>
+                            <span class="post-nav-title">{{ page.next.title }}</span>
+                            {% include corners.html %}
+                        </div>
+                    </a>
+                    {% else %}
+                    <span class="post-nav-card is-empty" aria-hidden="true"></span>
+                    {% endif %}
+                </nav>
             </div>
         </div>
-    </div>
-</article>
+    </article>
+</div>
 
+<script src="{{ '/js/post.js' | relative_url }}" defer></script>

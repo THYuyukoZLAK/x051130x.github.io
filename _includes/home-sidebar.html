@@ -1,17 +1,6 @@
-<aside class="col-lg-3 order-2 order-lg-0 d-flex flex-column flex-nowrap sticky-lg-top sidebar-sticky-top align-self-start home-sidebar" aria-label="站点信息">
-                <div class="hr double-stacked">
-                    <div class="decr-tickhr-container">
-                        <hr class="decr-rickhr-hr mt-0 mb-1">
-                        <div class="decr-rulehr-tick start-33 opacity-50 vr"></div>
-                        <div class="decr-rulehr-tick end-33 opacity-50 vr"></div>
-                    </div>
-                    <div class="decr-tickhr-container">
-                        <hr class="decr-rickhr-hr m-0 opacity-33">
-                        <div class="decr-rulehr-tick start-33 opacity-50 vr"></div>
-                        <div class="decr-rulehr-tick end-33 opacity-50 vr"></div>
-                    </div>
-                </div>
-                <div class="dotted-bg p-3">
+<aside class="col-lg-3 sticky-lg-top sidebar-sticky-top align-self-start home-sidebar" aria-label="站点信息">
+                {% include tick-rule.html class="home-sidebar-rule" %}
+                <div class="dotted-bg p-3 home-sidebar-clock">
                     {% include time.html %}
                 </div>
                 <div class="hitokoto" id="hitokoto" aria-live="polite">
@@ -38,7 +27,9 @@
                         </tbody>
                     </table>
                 </div>
-                <hr>
-                <img src="/img/widget-sidebar.png" style="width: 60%;margin-top: -10px;margin-bottom: -10px;" alt="">
-                <hr>
+                <div class="home-sidebar-decor">
+                    <hr>
+                    <img src="/img/widget-sidebar.png" style="width: 60%;margin-top: -10px;margin-bottom: -10px;" alt="">
+                    <hr>
+                </div>
             </aside>

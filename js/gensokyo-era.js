@@ -1,8 +1,9 @@
 (function () {
     'use strict';
 
-    var el = document.getElementById('gensokyo-era');
-    if (!el) return;
+    // The label may appear several times on one page (hero and sidebar).
+    var els = document.querySelectorAll('[data-gensokyo-era]');
+    if (!els.length) return;
 
     var DAY = ['日', '月', '星'];
     var SEASON = ['春', '夏', '秋', '冬'];
@@ -30,7 +31,9 @@
     // The build already rendered this for the build year; refresh it so the
     // label stays right on a site that has not been rebuilt for a while.
     var text = eraFor(new Date().getFullYear());
-    if (el.textContent.trim() !== text) {
-        el.textContent = text;
-    }
+    Array.prototype.forEach.call(els, function (el) {
+        if (el.textContent.trim() !== text) {
+            el.textContent = text;
+        }
+    });
 })();

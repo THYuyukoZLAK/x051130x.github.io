@@ -1,0 +1,29 @@
+{%- comment -%}
+A post's cover: its banner image, or a generated "log plate" when it has none.
+
+  include.post    the post
+  include.extra   extra attributes for the cover element (optional)
+
+The plate number is the post's place in publication order (oldest = 001).
+A post can pin its own number with `log: 12` in its front matter.
+{%- endcomment -%}
+{%- assign cover_post = include.post -%}
+{%- assign cover_name = cover_post.url | slugify | prepend: 'cover-' -%}
+{%- if cover_post.banner -%}
+<img alt="{{ include.alt | default: '' | escape }}" src="{{ cover_post.banner | relative_url }}" class="home-post-cover"
+    width="960" height="540" style="view-transition-name: {{ cover_name }}" {{ include.extra }}>
+{%- else -%}
+{%- assign log_no = cover_post.log -%}
+{%- unless log_no -%}
+{%- for other in site.posts -%}
+{%- if other.url == cover_post.url -%}{%- assign log_no = site.posts.size | minus: forloop.index0 -%}{%- endif -%}
+{%- endfor -%}
+{%- endunless -%}
+{%- assign log_label = log_no | prepend: '00' | slice: -3, 3 -%}
+<div class="home-post-cover log-plate" role="img" aria-label="LOG {{ log_label }}"
+    style="view-transition-name: {{ cover_name }}">
+    <span class="log-plate-label" aria-hidden="true">LOG</span>
+    <span class="log-plate-no" aria-hidden="true">{{ log_label }}</span>
+    <span class="log-plate-date" aria-hidden="true">{{ cover_post.date | date: "%Y.%m" }}</span>
+</div>
+{%- endif -%}

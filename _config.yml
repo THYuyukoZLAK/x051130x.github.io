@@ -10,6 +10,10 @@ title: "THYuyukoZLAK's Gensokyo"
 
 description: "Nice blog of uuz"
 
+# 首屏站名：大字一行、英文一行；下方的一句简介取自上面的 description
+brand_name: "白玉楼航空工業"
+brand_latin: "Hakugyokurou AeroIndustry"
+
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://x051130x.github.io" # the base hostname & protocol for your site
 github_username: THYuyukoZLAK

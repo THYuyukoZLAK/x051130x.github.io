@@ -181,21 +181,7 @@ a.uuz-post-entry .headline:hover, a.uuz-post-entry .headline:focus {
 
 // Posts
 
-.post-meta {
-    color: skyblue !important;
-    border-bottom: #fdfdfd;
-    border-bottom-style: solid;
-    border-width: 1px;
-    margin-bottom: 40px;
-    padding-bottom: 2px;
-}
 
-.post-divider{
-    background-color: #2a7ae2;
-    height: 1px;
-    margin-bottom: 10px;
-    transition: width 0.5s ease-out 0.5s;
-}
 
 // highlightdiv
 
@@ -359,33 +345,48 @@ a.uuz-post-entry .headline:hover, a.uuz-post-entry .headline:focus {
 
 .serverpage-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 .serverpage-content {
-    width: 900px !important;
+    flex: 1 1 560px;
+    max-width: 900px;
+    min-width: 0;
     margin: 20px;
 }
 
+.serverpage-hero {
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 25px;
+    text-align: center;
+
+    img {
+        max-width: 100%;
+        max-height: 200px;
+        height: auto;
+    }
+}
+
 .serverpage-infoitem {
-    width: 340px;
-    margin-top: 20px;
+    flex: 0 1 340px;
+    min-width: 0;
+    margin: 20px 20px 0;
 }
 
 .mainintro {
     @extend .banner;
-    width: 900px;
+    width: 100%;
     margin-bottom: 20px;
-    margin-right: 20px;
     position: relative
 }
 
 .serverstate {
     @extend .banner;
-    width: 340px;
+    width: 100%;
     border-left: none;
     margin-bottom: 20px;
-    margin-right: 20px;
     position: relative;
 }
 
@@ -400,7 +401,8 @@ a.uuz-post-entry .headline:hover, a.uuz-post-entry .headline:focus {
     bottom: 32px;
     left: 75px;
 
-    &:hover+.detail-container {
+    &:hover + .detail-container,
+    &:focus + .detail-container {
         opacity: 1;
         visibility: visible;
         transition: opacity 0.5s;
@@ -414,13 +416,22 @@ a.uuz-post-entry .headline:hover, a.uuz-post-entry .headline:focus {
     border-width: 1px;
     position: absolute;
     padding: 20px;
-    bottom: -50px;
-    right: 188px;
+    top: 100%;
+    left: 0;
+    width: 100%;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s;
-    width: 450px;
     z-index: 10;
+
+    // Beside the status column only when there is room for it.
+    @include media-breakpoint-up(xl) {
+        top: auto;
+        left: auto;
+        bottom: -50px;
+        right: 188px;
+        width: 450px;
+    }
 }
 
 .state-subtitle{
@@ -429,89 +440,46 @@ a.uuz-post-entry .headline:hover, a.uuz-post-entry .headline:focus {
     overflow: visible;
 }
 
-.mainintro-hov {
-    @extend .mainintro;
-    color: #0d373c;
-    transition: width 0.5s ease 0.1s, color 0.2s ease 0s;
+// Entry tiles on the server page. The caption is always readable and the
+// tile keeps its size on hover; only its frame reacts.
+.mainintro-hov,
+.serverstate-hov,
+.serverstate-hov-2 {
     display: flex;
-    height: 150px;
+    flex: 1 1 220px;
+    min-width: 0;
+    min-height: 150px;
+    margin-bottom: 20px;
+    padding-right: $sp-2;
+    color: $c-text;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s ease;
 
-    &:hover {
-        width: 1500px !important;
-        color: #abc0ca;
-        transition: width 0.5s ease 0s, color 0.5s ease 0.3s;
+    &:hover,
+    &:focus-within {
+        border-bottom-color: $c-signal;
     }
-    &:hover .hid1{
-        opacity: 0;
-        margin-right: -100px;
-    }
-    
-    &::before{
+
+    &::before {
         background: none;
     }
-}
 
-.hid1{
-    opacity: 1;
-    margin: 0px;
-    transition: opacity 0.3s ease 0s, margin 0.5s ease 0s;
-}
-
-.hid2{
-    @extend .hid1
-}
-
-.serverstate-hov {
-    @extend .serverstate;
-    color: #0d373c;
-    transition: width 0.5s ease 0.1s, color 0.2s ease 0s;
-    display: flex;
-    height: 150px;
-
-    &:hover {
-        width: 1500px !important;
-        color: #abc0ca;
-        transition: width 0.5s ease 0s, color 0.5s ease 0.3s;
-    }
-    &::before{
-        background: none;
-    }
-    &:hover .hid2{
-        opacity: 0;
-        margin-right: -100px;
-    }
-    &:hover .state-subtitle{
-        color: #abc0ca;
+    img {
+        flex: 0 0 auto;
     }
 }
 
-.serverstate-hov-2{
-    @extend .mainintro;
-    border-left: none;
-    padding: 0px;
-    color: #093750;
-    transition: width 0.5s ease 0.1s,color 0.2s ease 0s;
-    display: flex;
-    height: 150px;
+.serverstate-hov-2 {
     background-image: url(/img/mapbg.webp);
-    &:hover{
-        width: 1500px!important;
-        color: #abc0ca;
-        transition: width 0.5s ease 0s,color 0.5s ease 0.3s;
-    }
-    &::before{
-        background: none;
-    }
-    &:hover .hid3{
-        opacity: 0;
-        margin-right: -100px;
-    }
-    &:hover .state-subtitle{
-        color: #abc0ca;
-    }
 }
 
 // DetailsBar (nuked!)
+
+// The large player counts on the server page.
+[id^="onlinePlayers"] {
+    font-family: $font-display;
+    font-weight: 600;
+}
 
 // Globals
 
@@ -584,9 +552,6 @@ a:hover::before {
 //     padding-left: 1.4em;
 // }
 
-.uuz-post-rhs-sidebar {
-    transition: transform 0.5s ease-out 0.7s, opacity 0.5s ease-out 0.7s;
-}
 
 pre {
     background-color: black !important;
@@ -663,4 +628,22 @@ code div:before {
 
 // Homepage blocks last, so they can refine shared component styles.
 @import "home-blocks";
+
+// Hero contents: site name, latest post, clock, scroll cue.
+@import "hero";
+
+// Article page, built from the homepage components.
+@import "post";
+
+// Generated cover for posts without a banner.
+@import "log-plate";
+
+// Site footer.
+@import "footer";
+
+// Entrances, hover feedback, page transitions and scroll-linked motion.
+@import "motion";
+
+// Breakpoint behaviour for every page, written from the phone up.
+@import "responsive";
 
