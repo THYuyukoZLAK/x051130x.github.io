@@ -26,7 +26,7 @@
 
     // --- Scroll reveal: each element plays once, neighbours are staggered ---
     const targets = document.querySelectorAll(
-        '.home-posts .section-heading, .home-posts .uuz-post-entry, .proj-card, .postbody h1'
+        '.home-posts .section-heading, .home-posts .uuz-post-entry, .proj-card, .postbody h1, .site-footer .section-heading'
     );
 
     function reveal(el, index) {

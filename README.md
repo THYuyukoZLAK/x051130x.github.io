@@ -62,6 +62,7 @@ bundle exec jekyll serve --host 127.0.0.1
 | `js/site-stats.js` | 侧栏数据卡的前端取数逻辑（GitHub 仓库数、月访问量） |
 | `_sass/responsive.scss` | 全站断点行为（手机、平板、桌面），最后导入；新增布局规则写在这里 |
 | `js/clock.js` | 时间卡片的时钟，原生脚本，不依赖 jQuery 或 Luxon |
+| `_data/footer.yml`、`_includes/footer.html`、`_sass/footer.scss` | 页脚：链接、QQ 群号、版权起始年都在数据文件里，增删链接不用动模板；`js/footer.js` 负责群号的复制按钮 |
 | `_sass/motion.scss`、`js/motion.js` | 动效：首屏开机序列、角标锁定、滚动入场、页面过渡、主视觉随滚动和鼠标变化；时长变量在样式表顶部 |
 | `_sass/hero.scss` | 首屏内容：站名、最新文章、时钟、向下提示；站名文字在 `_config.yml` 的 `brand_name`、`brand_latin` |
 | `_sass/post.scss` | 文章页样式：头部、侧栏目录、正文面板、章节标题、上一篇/下一篇 |

@@ -1,0 +1,40 @@
+# 页脚内容。增删链接只改这里，不用动模板。
+# 以 http 开头的链接视为站外链接，会在新标签页打开并带 ↗ 标记。
+
+groups:
+  - title: SITE
+    links:
+      - label: 首页
+        url: /
+      - label: 文章列表
+        url: /#home-content
+      - label: 源码仓库
+        url: https://github.com/THYuyukoZLAK/x051130x.github.io
+
+  - title: SCEX
+    links:
+      - label: 服务器主页
+        url: /scex/
+      - label: 入服指南
+        url: /2022/08/19/guide.html
+      - label: mcmod 宣发页
+        url: https://play.mcmod.cn/sv20184362.html
+
+  - title: LINKS
+    links:
+      - label: bilibili
+        url: https://space.bilibili.com/484869373
+      - label: GitHub
+        url: https://github.com/THYuyukoZLAK
+      - label: osu!
+        url: https://osu.ppy.sh/users/28653211
+      - label: TH123 Tenco!
+        url: https://tenco.info/game/2/account/R051130/
+
+contact:
+  label: QQ 群 // 安康车万同好群
+  value: "952480829"
+
+copyright:
+  since: 2022
+  holder: THYuyuko_051130

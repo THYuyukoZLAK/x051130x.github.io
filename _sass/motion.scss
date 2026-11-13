@@ -187,6 +187,7 @@ $ease: cubic-bezier(.2, 0, 0, 1);
 
 .js-motion {
     .home-posts .section-heading,
+    .site-footer .section-heading,
     .postbody h1 {
         border-bottom-color: transparent;
         background: linear-gradient($c-alert, $c-alert) no-repeat left bottom;
@@ -200,9 +201,10 @@ $ease: cubic-bezier(.2, 0, 0, 1);
         }
     }
 
-    // Inside an article the heading text is content: it is never hidden,
-    // only its rule draws in.
-    .postbody h1 {
+    // Inside an article and in the footer the heading text is content: it
+    // is never hidden, only its rule draws in.
+    .postbody h1,
+    .site-footer .section-heading {
         color: $c-alert;
     }
 

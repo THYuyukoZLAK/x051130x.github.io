@@ -1,0 +1,50 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="decr-compass"></div>
+
+        <div class="site-footer-main">
+            <div class="site-footer-brand">
+                <img src="{{ '/img/HAIlogo.png' | relative_url }}" width="200" height="55" alt="白玉楼航空工業 Hakugyokurou AeroIndustry"
+                    loading="lazy">
+                {% if site.data.footer.contact %}
+                <div class="site-footer-contact">
+                    <span class="site-footer-contact-label">{{ site.data.footer.contact.label }}</span>
+                    <span class="site-footer-contact-row">
+                        <span class="site-footer-contact-value" id="footer-contact-value">{{ site.data.footer.contact.value }}</span>
+                        <button type="button" class="site-footer-copy" data-copy-target="footer-contact-value">复制</button>
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+
+            {% for group in site.data.footer.groups %}
+            <nav class="site-footer-group" aria-label="{{ group.title }}">
+                <p class="section-heading site-footer-heading">.\ {{ group.title }}</p>
+                <ul>
+                    {% for link in group.links %}
+                    <li>
+                        {% if link.url contains '://' %}
+                        <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}<span aria-hidden="true"> ↗</span></a>
+                        {% else %}
+                        <a href="{{ link.url | relative_url }}">{{ link.label }}</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endfor %}
+        </div>
+
+        <div class="site-footer-bar">
+            {%- assign year = site.time | date: "%Y" -%}
+            {%- assign since = site.data.footer.copyright.since | append: "" -%}
+            <span>© {% if since != "" and since != year %}{{ since }}–{% endif %}{{ year }} {{ site.data.footer.copyright.holder }}</span>
+            <span>代码 MIT · 内容 CC BY-SA 4.0</span>
+            <span class="site-footer-powered">
+                <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a> ·
+                <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> ·
+                <a href="https://www.infinityfree.net/" target="_blank" rel="noopener">InfinityFree</a>
+            </span>
+        </div>
+    </div>
+</footer>

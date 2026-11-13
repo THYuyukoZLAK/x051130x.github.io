@@ -1,0 +1,180 @@
+// Site footer: the compass rule on top, a brand block, link groups under the
+// same red headings the homepage uses, and one quiet line at the bottom.
+// Links come from _data/footer.yml.
+//
+//   desktop (>= 992)   brand | SITE | SCEX | LINKS
+//   tablet             brand across, then the three groups in a row
+//   phone              brand, SITE + SCEX side by side, LINKS in two columns
+
+.site-footer {
+    padding: $sp-5 0 $sp-4;
+}
+
+.site-footer-main {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $sp-4 $sp-3;
+    padding: $sp-4 0;
+}
+
+// --- Brand block ------------------------------------------------------------
+
+.site-footer-brand {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: $sp-3;
+
+    img {
+        flex: 0 0 auto;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.site-footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: $sp-1;
+    padding: $sp-2 $sp-3;
+    border: 1px solid rgba(3, 164, 251, .45);
+}
+
+.site-footer-contact-label {
+    font-size: .7rem;
+    color: $c-label;
+}
+
+.site-footer-contact-row {
+    display: flex;
+    align-items: center;
+    gap: $sp-3;
+}
+
+.site-footer-contact-value {
+    font-size: 1.05rem;
+    color: #fdfffe;
+    user-select: all;
+}
+
+.site-footer-copy {
+    min-width: $touch-min;
+    min-height: 1.75rem;
+    padding: 0 $sp-2;
+    font: inherit;
+    font-size: .75rem;
+    color: $c-signal;
+    background: none;
+    border: 1px solid rgba(3, 164, 251, .45);
+    cursor: pointer;
+    transition: color .15s, background-color .15s;
+
+    &:hover,
+    &:focus-visible {
+        color: $c-bg;
+        background-color: $c-signal;
+    }
+}
+
+// --- Link groups ------------------------------------------------------------
+
+.site-footer-group {
+    min-width: 0;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li {
+        margin: 0;
+    }
+
+    a {
+        padding: $sp-1 0;
+    }
+}
+
+.site-footer-heading {
+    margin: 0 0 $sp-2;
+    font-size: .85rem;
+}
+
+// The last group gets the full row on a phone and lists in two columns.
+.site-footer-group:last-of-type {
+    grid-column: 1 / -1;
+
+    ul {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: $sp-3;
+    }
+}
+
+// Comfortable tap targets where there is no pointer to aim with.
+@media (hover: none) {
+    .site-footer-group a {
+        display: inline-flex;
+        align-items: center;
+        min-height: $touch-min;
+    }
+
+    .site-footer-copy {
+        min-height: $touch-min;
+    }
+}
+
+// --- Bottom line ------------------------------------------------------------
+
+.site-footer-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-1 $sp-4;
+    padding-top: $sp-3;
+    border-top: 1px solid #0f5377;
+    font-size: .75rem;
+    color: rgba($c-text, .75);
+
+    a {
+        color: inherit;
+
+        &:hover,
+        &:focus-visible {
+            color: $c-bg;
+        }
+    }
+}
+
+// --- Wider screens ----------------------------------------------------------
+
+@include media-breakpoint-up(md) {
+    .site-footer-main {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: $sp-4;
+    }
+
+    .site-footer-group:last-of-type {
+        grid-column: auto;
+
+        ul {
+            display: block;
+        }
+    }
+
+    .site-footer-powered {
+        margin-left: auto;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .site-footer-main {
+        grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+    }
+
+    .site-footer-brand {
+        grid-column: auto;
+        flex-direction: column;
+    }
+}

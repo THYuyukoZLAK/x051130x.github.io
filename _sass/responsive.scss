@@ -6,36 +6,11 @@
 
 // --- Artwork layer ----------------------------------------------------------
 
-// `background-attachment: fixed` is ignored on iOS. A fixed layer clipped to
-// the homepage wrapper gives the same pinned artwork on every platform.
+// The wrapper clips its fixed descendants (the homepage artwork layer) to
+// its own box, so they never show behind the footer.
 .mainpage-bg {
     position: relative;
-    background: none;
     clip-path: inset(0);
-
-    &::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        width: 100%;
-        height: 100vh;
-        height: 100lvh; // does not jump when a phone's address bar collapses
-        background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('/img/uuzbg.jpg');
-        background-color: #000;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-}
-
-// On a tall screen, keep the figure's face in frame instead of the picture's
-// geometric centre.
-@media (orientation: portrait) {
-    .mainpage-bg::before {
-        background-position: 58% center;
-    }
 }
 
 // --- Hero -------------------------------------------------------------------
