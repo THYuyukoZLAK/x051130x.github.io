@@ -44,7 +44,7 @@ bundle exec jekyll serve --host 127.0.0.1
 | `index.html` | 首页，使用 Liquid 遍历 `site.posts` 生成文章列表 |
 | `_posts/` | Markdown 文章；文件顶部的 front matter 指定标题、布局和封面 |
 | `_layouts/default.html` | 全站 HTML 骨架、导航、页脚及公共脚本 |
-| `_layouts/post.html` | 文章页面布局，继承 default，包含侧栏和目录 |
+| `_layouts/post.html` | 文章页面布局，继承 default；头部沿用首页文章条目，左侧栏放时钟和目录 |
 | `_includes/` | 时间显示、社交图标等可复用片段 |
 | `css/main.scss` | 样式入口，构建为 `css/main.css` |
 | `_sass/` | 自定义样式及 Bootstrap SCSS；`stylesvar.scss` 定义颜色、字体等变量 |
@@ -62,7 +62,9 @@ bundle exec jekyll serve --host 127.0.0.1
 | `js/site-stats.js` | 侧栏数据卡的前端取数逻辑（GitHub 仓库数、月访问量） |
 | `_sass/responsive.scss` | 全站断点行为（手机、平板、桌面），最后导入；新增布局规则写在这里 |
 | `js/clock.js` | 时间卡片的时钟，原生脚本，不依赖 jQuery 或 Luxon |
-| `js/post-toc.js` | 文章页目录：手机和平板上折叠成一条，桌面保持展开 |
+| `_sass/post.scss` | 文章页样式：头部、侧栏目录、正文面板、章节标题、上一篇/下一篇 |
+| `js/post.js` | 文章页脚本：目录折叠与当前章节高亮、阅读进度条、给独立图片加角标框和图注 |
+| `_includes/tick-rule.html`、`_includes/corners.html` | 双层刻度线、四角角标的共享片段 |
 
 构建流程为 Markdown/Liquid → HTML，SCSS → CSS → Autoprefixer，结果写入 `_site/`。
 页面中的 CDN 脚本和服务器状态 API 仍需要网络；Jekyll 预览不执行 PHP。

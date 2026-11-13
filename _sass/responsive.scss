@@ -298,54 +298,15 @@
 }
 
 // Entrance, tied to the loading curtain instead of inline jQuery.
-.post-divider {
-    width: 100%;
-}
-
 html.is-loading {
     .postbody {
         opacity: 0;
         transform: translateY(200px);
     }
 
-    .uuz-post-rhs-sidebar {
+    .post-sidebar {
         opacity: 0;
-        transform: translateX(100px);
-    }
-
-    .post-divider {
-        width: 0;
-    }
-}
-
-// Table of contents: a fold-away bar on phones and tablets, the usual open
-// panel beside the article on desktop (js/post-toc.js keeps it open there).
-.post-toc {
-    > summary {
-        display: flex;
-        align-items: center;
-        min-height: $touch-min;
-        padding: 0 $sp-3;
-        color: $c-label;
-        cursor: pointer;
-    }
-
-    > .toc-noborder {
-        padding: 0 $sp-3 $sp-2;
-        overflow: auto;
-    }
-
-    @include media-breakpoint-up(lg) {
-        padding: $sp-3;
-        overflow: auto;
-
-        &[open] > summary {
-            display: none;
-        }
-
-        > .toc-noborder {
-            padding: 0;
-        }
+        transform: translateX(-100px);
     }
 }
 
@@ -362,8 +323,7 @@ html.is-loading {
 
 @media (prefers-reduced-motion: reduce) {
     .postbody,
-    .uuz-post-rhs-sidebar,
-    .post-divider {
+    .post-sidebar {
         transition: none;
     }
 }
