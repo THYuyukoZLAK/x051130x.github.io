@@ -60,9 +60,12 @@ bundle exec jekyll serve --host 127.0.0.1
 | `_includes/identity.html` | 头像 + 三行署名的共享片段（Hero 与侧栏卡片共用） |
 | `_sass/home-blocks.scss` | 首页区块样式：身份卡、数据卡、区块标题、项目格与装饰条 |
 | `js/site-stats.js` | 侧栏数据卡的前端取数逻辑（GitHub 仓库数、月访问量） |
+| `_sass/responsive.scss` | 全站断点行为（手机、平板、桌面），最后导入；新增布局规则写在这里 |
+| `js/clock.js` | 时间卡片的时钟，原生脚本，不依赖 jQuery 或 Luxon |
+| `js/post-toc.js` | 文章页目录：手机和平板上折叠成一条，桌面保持展开 |
 
 构建流程为 Markdown/Liquid → HTML，SCSS → CSS → Autoprefixer，结果写入 `_site/`。
-页面中的 CDN 脚本、Google Fonts 和服务器状态 API 仍需要网络；Jekyll 预览不执行 PHP。
+页面中的 CDN 脚本和服务器状态 API 仍需要网络；Jekyll 预览不执行 PHP。
 
 ## 首页侧栏数据卡
 

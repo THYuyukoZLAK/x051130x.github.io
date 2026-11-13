@@ -1,0 +1,369 @@
+// Breakpoint behaviour for every page. Imported last.
+//
+// Rules are written from the phone up and use Bootstrap's own breakpoints:
+//   phone  < 576    tablet 576–991    desktop >= 992
+// Nothing here changes how the site looks on a wide screen.
+
+// --- Artwork layer ----------------------------------------------------------
+
+// `background-attachment: fixed` is ignored on iOS. A fixed layer clipped to
+// the homepage wrapper gives the same pinned artwork on every platform.
+.mainpage-bg {
+    position: relative;
+    background: none;
+    clip-path: inset(0);
+
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100vh;
+        height: 100lvh; // does not jump when a phone's address bar collapses
+        background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('/img/uuzbg.jpg');
+        background-color: #000;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+// On a tall screen, keep the figure's face in frame instead of the picture's
+// geometric centre.
+@media (orientation: portrait) {
+    .mainpage-bg::before {
+        background-position: 58% center;
+    }
+}
+
+// --- Hero -------------------------------------------------------------------
+
+.headfront {
+    height: calc(100svh - #{$menubar-height});
+}
+
+.is-home .headfront {
+    height: 100svh;
+}
+
+.headfront-quote {
+    margin-right: 20px;
+    font-size: clamp(1rem, calc(.9rem + .5vw), 1.25rem);
+}
+
+// The avatar frame takes its size from the context it sits in.
+.identity-avatar .decr-cornercontainer {
+    width: var(--avatar-size, 120px);
+}
+
+.headfront-identity {
+    --avatar-size: clamp(72px, 18vw, 120px);
+
+    .identity-handle {
+        font-size: clamp(1.15rem, calc(1rem + 1.2vw), 1.55rem);
+    }
+}
+
+.site-card {
+    --avatar-size: 72px;
+}
+
+// --- Navbar -----------------------------------------------------------------
+
+// Only used when the layout picked `navbar-expand-sm` (more than three pages).
+@include media-breakpoint-down(sm) {
+    .navbar-expand-sm .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: $sp-2 $sp-3;
+        background-color: $c-bar;
+    }
+
+    .navbar-expand-sm .nav-link {
+        min-height: $touch-min;
+        display: flex;
+        align-items: center;
+    }
+}
+
+// --- Homepage sidebar -------------------------------------------------------
+
+.home-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-posts,
+.home-sidebar {
+    min-width: 0;
+}
+
+// Below the desktop breakpoint the sidebar becomes a status strip above the
+// list: clock and counters side by side, the quote underneath.
+@include media-breakpoint-down(lg) {
+    .home-sidebar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: $sp-2 $sp-3;
+        margin-bottom: $sp-3;
+    }
+
+    .home-sidebar-rule {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .home-sidebar-clock {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .site-card {
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        align-items: center;
+        margin-top: 0;
+
+        // The hero already introduces the author on these screens.
+        .identity-row {
+            display: none;
+        }
+    }
+
+    .site-stats {
+        margin-top: 0;
+    }
+
+    .hitokoto {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        margin-top: 0;
+    }
+
+    .home-sidebar-decor {
+        display: none;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .home-sidebar-clock {
+        padding: $sp-2 !important; // overrides the p-3 utility on the element
+        font-size: .8rem;
+    }
+
+    .site-card {
+        padding: $sp-2;
+    }
+}
+
+// --- LED decor strip --------------------------------------------------------
+
+// One row at every width. Narrow screens show fewer widgets rather than
+// stacking them.
+.home-posts-decor {
+    flex-wrap: nowrap;
+    overflow: hidden;
+
+    .decr-led-side {
+        flex: 0 1 370px;
+        min-width: 0;
+        object-fit: cover;
+        object-position: left center;
+    }
+
+    .decr-led-grid {
+        display: none;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .home-posts-decor .decr-led-grid {
+        display: block;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .home-posts-decor {
+        -webkit-mask-image: linear-gradient(90deg, #000 75%, transparent);
+        mask-image: linear-gradient(90deg, #000 75%, transparent);
+    }
+}
+
+// --- Project cards ----------------------------------------------------------
+
+// Touch screens have no hover: keep the title on the card as a caption strip.
+@media (hover: none) {
+    .proj-overlay {
+        top: auto;
+        padding: $sp-2 $sp-3;
+        opacity: 1;
+    }
+
+    .proj-overlay-title {
+        opacity: 1;
+        transform: none;
+    }
+
+    .proj-overlay-text {
+        display: none;
+    }
+}
+
+// --- Post list --------------------------------------------------------------
+
+// Phones: a small thumbnail beside the text, so several posts fit a screen.
+@include media-breakpoint-down(md) {
+    a.uuz-post-entry {
+        min-height: 0;
+        margin-bottom: $sp-3;
+
+        > .row {
+            --bs-gutter-x: #{$sp-3};
+            flex-wrap: nowrap;
+        }
+
+        .headline {
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+
+        hr {
+            margin: $sp-1 0 $sp-2;
+        }
+    }
+
+    .home-post-media {
+        flex: 0 0 128px;
+        width: 128px;
+    }
+
+    .home-post-details {
+        flex: 1 1 0;
+        width: auto;
+        min-width: 0;
+    }
+
+    .uuz-post-entry .decr-cornercontainer {
+        margin-bottom: 0;
+    }
+
+    .home-posts > .home-block hr.opacity-50 {
+        margin: $sp-2 0 $sp-3;
+    }
+}
+
+.home-pagination {
+    a,
+    span[aria-disabled] {
+        display: inline-flex;
+        align-items: center;
+        min-height: $touch-min;
+        padding: 0 $sp-2;
+    }
+}
+
+// --- Post page --------------------------------------------------------------
+
+// The article row is a flex child; without this, wide content inside a post
+// stretches the whole page sideways on phones.
+.post-layout,
+.post-layout > .row > * {
+    min-width: 0;
+}
+
+.postbody {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    pre {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    // Wide tables scroll inside themselves.
+    .postbody table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+}
+
+// Entrance, tied to the loading curtain instead of inline jQuery.
+.post-divider {
+    width: 100%;
+}
+
+html.is-loading {
+    .postbody {
+        opacity: 0;
+        transform: translateY(200px);
+    }
+
+    .uuz-post-rhs-sidebar {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    .post-divider {
+        width: 0;
+    }
+}
+
+// Table of contents: a fold-away bar on phones and tablets, the usual open
+// panel beside the article on desktop (js/post-toc.js keeps it open there).
+.post-toc {
+    > summary {
+        display: flex;
+        align-items: center;
+        min-height: $touch-min;
+        padding: 0 $sp-3;
+        color: $c-label;
+        cursor: pointer;
+    }
+
+    > .toc-noborder {
+        padding: 0 $sp-3 $sp-2;
+        overflow: auto;
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding: $sp-3;
+        overflow: auto;
+
+        &[open] > summary {
+            display: none;
+        }
+
+        > .toc-noborder {
+            padding: 0;
+        }
+    }
+}
+
+// --- Loading curtain --------------------------------------------------------
+
+@include media-breakpoint-down(sm) {
+    .loading-widget {
+        right: $sp-3;
+        bottom: $sp-4;
+        padding-left: 0;
+        white-space: nowrap;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .postbody,
+    .uuz-post-rhs-sidebar,
+    .post-divider {
+        transition: none;
+    }
+}

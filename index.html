@@ -20,7 +20,7 @@ layout: default
         <div class="decr-compass mb-3"></div>
         <div class="row">
             {% include home-sidebar.html %}
-            <main class="col-lg-9 order-1 home-posts" aria-label="文章列表">
+            <main class="col-lg-9 home-posts" aria-label="文章列表">
 
                 <div class="home-posts-decor">
                     <img class="decr-led" src="{{ '/img/widget-12-01.gif' | relative_url }}" width="320" height="61"
@@ -75,7 +75,7 @@ layout: default
                                 <section class="col-md-4 col-lg-5 home-post-media">
                                     <div class="decr-cornercontainer">
                                         <img alt="{{ post.title | escape }}" src="{{ cover | relative_url }}"
-                                            class="home-post-cover" width="960" height="540">
+                                            class="home-post-cover" width="960" height="540" loading="lazy">
                                         <div class="corner-tl"></div>
                                         <div class="corner-tr"></div>
                                         <div class="corner-bl"></div>

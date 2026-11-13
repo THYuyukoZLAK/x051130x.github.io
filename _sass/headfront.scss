@@ -43,12 +43,7 @@ html.is-loading .headfront-text {
     overflow: hidden;
 }
 
+// The artwork itself is painted by a fixed layer; see responsive.scss.
 .mainpage-bg {
-    // The legacy three-argument cross-fade() is rejected by current browsers.
-    background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('/img/uuzbg.jpg');
     background-color: black;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
 }

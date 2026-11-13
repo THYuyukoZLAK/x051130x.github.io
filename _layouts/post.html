@@ -11,10 +11,10 @@ layout: default
     }
 </style>
 <article class="mt-3">
-    <div class="container-lg d-flex flex-row flex-nowrap">
+    <div class="container-lg post-layout">
         <div class="row uuz-lg-flex-no-wrap flex-wrap-reverse">
             <div class="col-lg">
-                <div class="bg-primary-subtle p-4">
+                <div class="bg-primary-subtle p-3 p-md-4">
                     <h2 itemprop="name headline">{{ page.title }}</h2>
                     <p class="post-meta">
                         <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
@@ -28,12 +28,6 @@ layout: default
                         {% endif %}
                     </p>
                     <div class="postbody uuz-markdown">
-                        <script>
-                            $(".postbody").css("opacity", "0").css("transform", "translateY(200px)");
-                            $(document).ready(() => {
-                                $(".postbody").css("opacity", "1").css("transform", "translateY(0)");
-                            });
-                        </script>
                         {{ content }}
                     </div>
                     
@@ -41,19 +35,7 @@ layout: default
             </div>
             <div class="col-lg-3 mb-3 d-flex flex-column flex-nowrap flex-lg-shrink-1 sticky-lg-top sidebar-sticky-top text-wrap align-self-start">
                 <div class="post-divider"></div>
-                <script>
-                    $(".post-divider").css("width", "0px");
-                    $(document).ready(() => {
-                        $(".post-divider").css("width", "100%");
-                    });
-                </script>
                 <div class="uuz-post-rhs-sidebar">
-                    <script>
-                        $(".uuz-post-rhs-sidebar").css("opacity", "0").css("transform", "translateX(100px)");
-                        $(document).ready(() => {
-                            $(".uuz-post-rhs-sidebar").css("opacity", "1").css("transform", "translateX(0)");
-                        });
-                    </script>
                     <!--
                     {% if post.banner %}
                         <img alt="{{ post.title }}" src="{{ post.banner | prepend: site.baseurl }}" class="img-fluid" width="300">
@@ -61,17 +43,19 @@ layout: default
                         <img src="/img/guide.webp" class="img-fluid" width="300" height="160" style="visibility: hidden;">
                     {% endif %}
                     -->
-                    <div class="top-bg p-3 mb-3">
+                    <div class="top-bg p-3 mb-3 d-none d-lg-block">
                         {% include time.html %}
                     </div>
-                    <div class="top-bg p-3" style="overflow: auto;">
+                    <details class="top-bg post-toc" id="uuz-post-toc-box">
+                        <summary>目录</summary>
                         <div class="toc-noborder" id="uuz-post-toc">
                             {% toc %}
                         </div>
-                    </div>
+                    </details>
                 </div>
             </div>
         </div>
     </div>
 </article>
+<script src="{{ '/js/post-toc.js' | relative_url }}" defer></script>
 

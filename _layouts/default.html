@@ -54,25 +54,9 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend:
         site.baseurl | prepend: site.url }}">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Bootstrap advises me to place their JS on the end of <body>. -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.5.0/luxon.min.js" integrity="sha512-SN7iwxiJt9nFKiLayg3NjLItXPwRfBr4SQSIugMeBFrD4lIFJe1Z/exkTZYAg3Ul+AfZEGws2PQ+xSoaWfxRQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
 
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <script>
-        function setCurrentTimeDate() {
-            $("#banner-time").text(luxon.DateTime.now().toFormat('HH:mm:ss'));
-            $("#banner-date").text(luxon.DateTime.now().setLocale('en-US').toFormat('d MMMM y'));
-            setTimeout(setCurrentTimeDate, 500);
-        }
-        $(document).ready(setCurrentTimeDate);
-    </script>
+    <script src="{{ '/js/clock.js' | relative_url }}" defer></script>
 </head>
 
 <body class="{% if page.url == '/' %}is-home{% endif %}">
@@ -94,7 +78,10 @@
     <script src="{{ '/js/gensokyo-era.js' | relative_url }}" defer></script>
 
 
-    <nav class="navbar sticky-top navbar-expand top-bg" id="global-navbar">
+    {%- comment -%} With more than three pages the menu folds away on phones. {%- endcomment -%}
+    {%- assign nav_count = 0 -%}
+    {%- for page in site.pages -%}{%- if page.title and page.permalink -%}{%- assign nav_count = nav_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
+    <nav class="navbar sticky-top {% if nav_count > 3 %}navbar-expand-sm{% else %}navbar-expand{% endif %} top-bg" id="global-navbar">
         <div class="container-fluid">
             <a class="navbar-brand text-secondary" href="{{ site.baseurl }}/">HOME</a>
 
@@ -122,15 +109,15 @@
     </div>
 
     <div class="container-fluid d-flex flex-column align-items-center">
-        <footer class="row container-sm py-5">
-            <div class="col border-start border-3">
+        <footer class="row gy-4 container-sm py-5 site-footer">
+            <div class="col-12 col-sm-6 col-lg border-start border-3">
                 <h5>This site</h5>
                 <ul class="list-inline">
                     <li><a href="/index.html">Home</a></li>
                     <li><a href="https://github.com/x051130x/x051130x.github.io">Github repo</a></li>
                 </ul>
             </div>
-            <div class="col border-start border-3">
+            <div class="col-12 col-sm-6 col-lg border-start border-3">
                 <h5>SCEX server</h5>
                 <ul class="list-inline">
                     <li><a href="/scex/index.html">Home Page</a></li>
@@ -138,7 +125,7 @@
                     <li><a href="/2022/08/19/guide.html">入服指南文档</a></li>
                 </ul>
             </div>
-            <div class="col border-start border-3">
+            <div class="col-12 col-sm-6 col-lg border-start border-3">
                 <a href="https://space.bilibili.com/484869373">bilibili channel</a><br>
                 <a href="https://github.com/x051130x">Github</a><br>
                 <a href="https://osu.ppy.sh/users/28653211">osu! profile</a><br>
@@ -149,8 +136,8 @@
                     952480829
                 </p>
             </div>
-            <div class="col border-start border-3 fs-8">
-                <img src="/img/HAIlogo.png" class="pb-2" style="width: 200px;" alt="HAI Logo"><br>
+            <div class="col-12 col-sm-6 col-lg border-start border-3 fs-8">
+                <img src="/img/HAIlogo.png" class="pb-2" width="200" alt="HAI Logo"><br>
                 <p>
                     Powered By Jekyll<br>
                     This page is powered by <a href="https://pages.github.com/">Github Pages</a>.<br>
@@ -161,9 +148,9 @@
                     Licensed under MIT (for source code) & CC-BY-SA 4.0 (for content)
                 </p>
             </div>
+        </footer>
     </div>
     <!--img src="/img/footsanae.png" style="width: 100%;margin-bottom: 30px;"-->
-    </nav>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
