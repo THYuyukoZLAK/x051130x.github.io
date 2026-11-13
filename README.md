@@ -122,6 +122,29 @@ GitHub Pages 不执行 PHP，因此线上若未配置该接口，「月访问」
 `img/proj-placeholder-2.png`），替换图片并修改 `index.html` 中两个链接的 `href` 即可。
 头像占位图为 `img/avatar-placeholder.png`。
 
+## 首屏背景
+
+首屏插图每次打开首页时从三张里随机选一张，全部为 WebP、1920×1080、居中裁切：
+
+| 文件 | 来源 | 体积 |
+| --- | --- | --- |
+| `img/bg-1.webp` | 原 `bg1.jpg`（烟花 / 双人） | 294 KB |
+| `img/bg-2.webp` | 原 `bg2.jpg`（白发角色 / 花瓣） | 75 KB |
+| `img/bg-3.webp` | 原 `uuzbg.jpg`（旧默认背景） | 134 KB |
+
+选取发生在首次绘制之前：`_layouts/default.html` 头部的内联脚本把序号写到
+`<html data-bg="1|2|3">` 并预加载对应文件，`_sass/motion.scss` 里三条
+`[data-bg="n"] .art-image` 规则据此换图，所以不会先闪一张默认图。
+`background-position` 为 `center`（原先竖屏使用过 `58% center`，已取消）。
+
+替换或增加背景：把新图按 1920×1080 居中裁切压成 WebP 放进 `img/`，
+重命名为 `bg-<n>.webp`，再同步三处——`motion.scss` 的规则、
+`_layouts/default.html` 里脚本的 `count`。
+
+旧的三张 JPG 已删除：`uuzbg.jpg` 可从 git 历史取回
+（`git show 4631f30:img/uuzbg.jpg`）；`bg1.jpg`、`bg2.jpg` 当时未纳入 git，
+删除后无法从仓库恢复，需要原始分辨率时请重新取用源文件。
+
 ## Building
 
 首页使用 `jekyll-paginate` 静态分页，`_config.yml` 中的 `paginate: 10` 控制每页数量。

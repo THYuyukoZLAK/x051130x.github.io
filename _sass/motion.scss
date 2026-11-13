@@ -275,7 +275,9 @@ $ease: cubic-bezier(.2, 0, 0, 1);
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('/img/uuzbg.jpg');
+    // One of three illustrations is chosen per page load by the inline script
+    // in the layout; it sets data-bg on <html> before the first paint.
+    background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('/img/bg-1.webp');
     background-color: #000;
     background-repeat: no-repeat;
     background-size: cover;
@@ -284,10 +286,12 @@ $ease: cubic-bezier(.2, 0, 0, 1);
     opacity: var(--art-o, 1);
 }
 
-@media (orientation: portrait) {
-    .art-image {
-        background-position: 58% center;
-    }
+[data-bg="2"] .art-image {
+    background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('/img/bg-2.webp');
+}
+
+[data-bg="3"] .art-image {
+    background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('/img/bg-3.webp');
 }
 
 .art-corner {

@@ -54,6 +54,26 @@
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend:
         site.baseurl | prepend: site.url }}">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+
+    {%- comment -%}
+    首屏背景三选一：在首次绘制前把序号写到 <html data-bg>，CSS 据此选图，
+    所以不会先闪一张默认图；同时预加载选中的那张。
+    {%- endcomment -%}
+    {%- if page.url == '/' -%}
+    <script>
+        (function () {
+            var count = 3;
+            var n = 1 + Math.floor(Math.random() * count);
+            document.documentElement.setAttribute('data-bg', String(n));
+            var preload = document.createElement('link');
+            preload.rel = 'preload';
+            preload.as = 'image';
+            preload.href = '{{ site.baseurl }}/img/bg-' + n + '.webp';
+            document.head.appendChild(preload);
+        })();
+    </script>
+    {%- endif -%}
+
     <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
 
     <script src="{{ '/js/clock.js' | relative_url }}" defer></script>
